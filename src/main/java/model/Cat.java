@@ -15,5 +15,27 @@ public class Cat {
         this.parents = parents;
         this.genotype = new HashMap<>();
     }
+
+    // GETTERS
+    public String getName() {
+        return this.name;
+    }
+
+    public Sex getSex() {
+        return this.sex;
+    }
+
+    public ParentPair getParents() {
+        return this.parents;
+    }
+
+    public Map<Gene, AllelePair> getGenotype() {
+        return this.genotype;
+    }
+
+    // SETTERS
+    public void setName(String newName) {
+        this.name = newName;
+    }
     
 }
