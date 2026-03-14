@@ -37,7 +37,7 @@ public class Gene {
     // REQUIRES: a cannot be NULL
     // MODIFIES: this.alleles
     public void addAllele(Allele a) {
-        // STUB
+        this.alleles.add(a);
     }
 
 }
