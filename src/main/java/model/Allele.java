@@ -3,14 +3,12 @@ package model;
 public class Allele {
     private final Gene gene;
     private final String symbol;
-    private final DominanceRule dr;
-    private final String traitVariant;
+    private final int rank; // dominance ranking, higher = more dominant
 
-    public Allele(Gene gene, String symbol, DominanceRule dr, String traitVariant) {
+    public Allele(Gene gene, String symbol, int rank) {
         this.gene = gene;
         this.symbol = symbol;
-        this.dr = dr;
-        this.traitVariant = traitVariant;
+        this.rank = rank;
     }
 
     // GETTERS
@@ -22,11 +20,7 @@ public class Allele {
         return this.symbol;
     }
 
-    public DominanceRule getDominanceRule() {
-        return this.dr;
-    }
-
-    public String getTraitVariant() {
-        return this.traitVariant;
+    public int getRank() {
+        return this.rank;
     }
 }
