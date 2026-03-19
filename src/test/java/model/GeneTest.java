@@ -1,9 +1,9 @@
 package model;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 public class GeneTest {
     private Trait t;
@@ -31,11 +31,11 @@ public class GeneTest {
         assertTrue(g.getAlleles().isEmpty());
         // add one
         g.addAllele(a1);
-        assertEquals(a1, g.getAlleles().get(0));
+        assertTrue(g.getAlleles().contains(a1));
         // add more than one
         g.addAllele(a2);
-        assertEquals(a1, g.getAlleles().get(0));
-        assertEquals(a2, g.getAlleles().get(1));
+        assertTrue(g.getAlleles().contains(a1));
+        assertTrue(g.getAlleles().contains(a2));
     }
 
 }

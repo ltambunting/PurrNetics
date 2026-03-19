@@ -1,19 +1,19 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Gene {
     private final String symbol;
     private final Trait trait;
     private final InheritanceRule inheritanceRule;
-    private List<Allele> variants;
+    private Set<Allele> variants;
 
     public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule) {
         this.symbol = symbol;
         this.trait = trait; // represents trait/phenotype that locus determines
         this.inheritanceRule = inheritanceRule;
-        this.variants = new ArrayList<>();
+        this.variants = new HashSet<>();
     }
 
     // GETTERS
@@ -29,11 +29,11 @@ public class Gene {
         return this.inheritanceRule;
     }
 
-    public List<Allele> getAlleles() {
+    public Set<Allele> getAlleles() {
         return this.variants;
     }
 
-    // EFFECTS: adds an allele/gene variant to list of alleles at this gene/locus
+    // EFFECTS: adds an allele/gene variant to set of alleles at this gene/locus
     // REQUIRES: a cannot be NULL
     // MODIFIES: this.alleles
     public void addAllele(Allele a) {
