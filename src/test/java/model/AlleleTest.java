@@ -8,11 +8,13 @@ public class AlleleTest {
     private Gene g;
     private Allele a1;
     private Trait t1;
+    private AutosomalInheritance air;
     
     @BeforeEach
     public void setup() {
+        air = new AutosomalInheritance();
         t1 = new Trait("coatLength");
-        g = new Gene("L", t1, InheritanceRule.AUTOSOMAL);
+        g = new Gene("L", t1, air);
         a1 = new Allele(g, "N", 2);
     }
 

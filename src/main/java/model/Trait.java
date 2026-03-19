@@ -11,4 +11,18 @@ public class Trait {
         this.key = key;
         this.traitVariants = new HashSet<>();
     }
+
+    // GETTERS
+    public String getKey() {
+        return this.key;
+    }
+
+    public Set<String> getTraitVariants() {
+        return this.traitVariants;
+    }
+
+    public void addTraitVariant(String traitVariant) {
+        this.traitVariants.add(traitVariant);
+    }
+
 }

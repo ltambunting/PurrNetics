@@ -6,13 +6,13 @@ import java.util.List;
 public class Gene {
     private final String symbol;
     private final Trait trait;
-    private final InheritanceRule ir;
+    private final InheritanceRule inheritanceRule;
     private List<Allele> variants;
 
-    public Gene(String symbol, Trait trait, InheritanceRule ir) {
+    public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule) {
         this.symbol = symbol;
         this.trait = trait; // represents trait/phenotype that locus determines
-        this.ir = ir;
+        this.inheritanceRule = inheritanceRule;
         this.variants = new ArrayList<>();
     }
 
@@ -26,7 +26,7 @@ public class Gene {
     }
 
     public InheritanceRule getInheritanceRule() {
-        return this.ir;
+        return this.inheritanceRule;
     }
 
     public List<Allele> getAlleles() {

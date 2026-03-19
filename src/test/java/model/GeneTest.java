@@ -10,10 +10,11 @@ public class GeneTest {
     private Gene g;
     private Allele a1;
     private Allele a2;
+    private AutosomalInheritance air;
     
     @BeforeEach
     public void setup() {
-        g = new Gene("L", t, InheritanceRule.AUTOSOMAL);
+        g = new Gene("L", t, air);
         a1 = new Allele(g, "N", 2);
         a2 = new Allele(g, "M4", 1);
     }
@@ -22,7 +23,7 @@ public class GeneTest {
     public void getterTests() {
         assertEquals("L", g.getSymbol());
         assertEquals(t, g.getTrait());
-        assertEquals(InheritanceRule.AUTOSOMAL, g.getInheritanceRule());
+        assertEquals(air, g.getInheritanceRule());
     }
 
     @Test
