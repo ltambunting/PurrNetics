@@ -8,6 +8,7 @@ public class Cat {
     private final Sex sex;
     private final ParentPair parents;
     private final Map<Gene, AllelePair> genotype;
+    // to add -> phenotype field (final)
 
     public Cat(String n, Sex s, ParentPair parents) {
         this.name = n;

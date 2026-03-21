@@ -20,7 +20,8 @@ public class AllelePair {
         return this.paternalAllele;
     }
 
-    // EFFECT: returns a random allele from allele pair
+    // EFFECT: returns randomly a maternal or paternal allele 
+    // from allele pair (utilizing deterministic dependency injection)
     // REQUIRES: random != null
     public Allele getRandomAllele(Random random) {
         int value = random.nextInt(2); // return int between 0 and 1
