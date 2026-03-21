@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-// TODO: perhaps refactor the loops below as test suite is so big use maps with counts
 public class AutosomalInheritanceTest {
     private static final int ITERATIONS =1000;
     private static final double LOWER_BOUND_ALLELE_DISTRIBUTION = 0.2;
@@ -21,18 +19,18 @@ public class AutosomalInheritanceTest {
     private Gene gene;
     private Trait trait;
     private AutosomalInheritance autosomalInheritance;
-    private Allele dominantAllele;
-    private Allele recessiveAllele;
+    private Gene.Allele dominantAllele;
+    private Gene.Allele recessiveAllele;
 
     @BeforeEach
     public void setup() {
         random = new Random(67);
         trait = new Trait("coatLength");
+        autosomalInheritance = new AutosomalInheritance();
         trait.addTraitVariant("shortHair");
         gene = new Gene("L", trait, autosomalInheritance);
-        dominantAllele = new Allele(gene, "shortHair", 1); 
-        recessiveAllele = new Allele(gene, "longHair", 0);
-        autosomalInheritance = new AutosomalInheritance();
+        dominantAllele = gene.addAllele("D", 1, DOMINANT_TRAIT);
+        recessiveAllele = gene.addAllele("R", 0, RECESSIVE_TRAIT);
     }
 
     @Test
@@ -40,8 +38,8 @@ public class AutosomalInheritanceTest {
         AllelePair maternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
         AllelePair paternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
         AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, random);
-        Allele maternal = offspring.getMaternalAllele();
-        Allele paternal = offspring.getPaternalAllele();
+        Gene.Allele maternal = offspring.getMaternalAllele();
+        Gene.Allele paternal = offspring.getPaternalAllele();
         assertTrue((maternal == dominantAllele || maternal == recessiveAllele) && (paternal == dominantAllele || paternal == recessiveAllele));
     }
 
@@ -57,8 +55,8 @@ public class AutosomalInheritanceTest {
 
         for (int i = 0; i < ITERATIONS; i++) {
             AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, random);
-            Allele maternal = offspring.getMaternalAllele();
-            Allele paternal = offspring.getPaternalAllele();
+            Gene.Allele maternal = offspring.getMaternalAllele();
+            Gene.Allele paternal = offspring.getPaternalAllele();
             if (maternal == dominantAllele && paternal == dominantAllele) {
                 numAA++;
             } else if (maternal == dominantAllele && paternal == recessiveAllele) {
