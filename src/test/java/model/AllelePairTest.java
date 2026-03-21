@@ -12,8 +12,8 @@ public class AllelePairTest {
     private Gene gene;
     private Trait trait;
     private AutosomalInheritance autosomalInheritance;
-    private Allele allele1;
-    private Allele allele2;
+    private Gene.Allele allele1;
+    private Gene.Allele allele2;
     private AllelePair allelePair;
 
     @BeforeEach
@@ -22,8 +22,8 @@ public class AllelePairTest {
         trait = new Trait("coatLength");
         autosomalInheritance = new AutosomalInheritance();
         gene = new Gene("L", trait, autosomalInheritance);
-        allele1 = new Allele(gene, "shortHair", 1); 
-        allele2 = new Allele(gene, "longHair", 0);
+        allele1 = gene.addAllele("Ls", 1, "shortHair");
+        allele2 = gene.addAllele("Ll", 0, "longHair");
         allelePair = new AllelePair(allele1, allele2);
     }
 
@@ -37,7 +37,7 @@ public class AllelePairTest {
     public void getRandomAlleleTest() {
         // test to see if fixed seed has deterministic behaviour and calls
         // either maternal or paternal allele
-        Allele result = allelePair.getRandomAllele(random);
+        Gene.Allele result = allelePair.getRandomAllele(random);
         assertTrue(result == allele1 || result == allele2);
     }
 
@@ -48,7 +48,7 @@ public class AllelePairTest {
         int paternalCount = 0;
 
         for(int i = 0; i < 1000; i++) {
-            Allele result = allelePair.getRandomAllele(random);
+            Gene.Allele result = allelePair.getRandomAllele(random);
             if (result == allele1) {
                 maternalCount++;
             } else if (result == allele2) {

@@ -8,19 +8,15 @@ import org.junit.jupiter.api.Test;
 public class GeneTest {
     private Trait t;
     private Gene g;
-    private Allele a1;
-    private Allele a2;
     private AutosomalInheritance air;
     
     @BeforeEach
     public void setup() {
         g = new Gene("L", t, air);
-        a1 = new Allele(g, "N", 2);
-        a2 = new Allele(g, "M4", 1);
     }
 
     @Test
-    public void getterTests() {
+    public void getterTestsTrivial() {
         assertEquals("L", g.getSymbol());
         assertEquals(t, g.getTrait());
         assertEquals(air, g.getInheritanceRule());
@@ -30,12 +26,13 @@ public class GeneTest {
     public void addAlleleTest() {
         assertTrue(g.getAlleles().isEmpty());
         // add one
-        g.addAllele(a1);
+        Gene.Allele a1 = g.addAllele("S", 1, "ShortHair");
         assertTrue(g.getAlleles().contains(a1));
         // add more than one
-        g.addAllele(a2);
+        Gene.Allele a2 = g.addAllele("L", 0, "LongHair");
         assertTrue(g.getAlleles().contains(a1));
         assertTrue(g.getAlleles().contains(a2));
     }
+
 
 }
