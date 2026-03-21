@@ -8,8 +8,8 @@ public class AutosomalInheritance implements InheritanceRule {
     // REQUIRES: maternal != null and paternal != null
     @Override
     public AllelePair inherit(AllelePair maternal, AllelePair paternal, Random random) {
-        Allele maternalCopy = maternal.getRandomAllele(random);
-        Allele paternalCopy = paternal.getRandomAllele(random);
+        Gene.Allele maternalCopy = maternal.getRandomAllele(random);
+        Gene.Allele paternalCopy = paternal.getRandomAllele(random);
         AllelePair offspringAllelePair = new AllelePair(maternalCopy, paternalCopy);
         return offspringAllelePair;
     } 
@@ -18,7 +18,14 @@ public class AutosomalInheritance implements InheritanceRule {
     //         otherwise, return dominant trait
     // REQUIRES: genotype != null
     @Override
-    public String resolvePhenotype(AllelePair genotype) {
-        return null; //stub
-    };
+    public String resolvePhenotype(AllelePair allelePair) {
+        Gene.Allele maternalCopy = allelePair.getMaternalAllele();
+        Gene.Allele paternalCopy = allelePair.getPaternalAllele();
+        if (maternalCopy.getRank() > paternalCopy.getRank()) {
+            return maternalCopy.getVariant(); // maternal copy is dominant and now we express maternal variant
+        } else if (paternalCopy.getRank() > maternalCopy.getRank()) {
+            return paternalCopy.getVariant(); // paternal copy dominant now we express paternal variant
+        }
+        return maternalCopy.getVariant(); // final combination is both equal so arbitrarily return maternal
+    }
 }
