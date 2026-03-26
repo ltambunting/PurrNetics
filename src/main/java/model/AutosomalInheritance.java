@@ -26,6 +26,7 @@ public class AutosomalInheritance implements InheritanceRule {
         } else if (paternalCopy.getRank() > maternalCopy.getRank()) {
             return paternalCopy.getVariant(); // paternal copy dominant now we express paternal variant
         }
-        return maternalCopy.getVariant(); // final combination is both equal so arbitrarily return maternal
+        return maternalCopy.getVariant(); // both parents provide the same allele variant,
+                                          // so arbitrarily return maternal variant
     }
 }

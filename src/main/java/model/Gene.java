@@ -46,8 +46,8 @@ public class Gene {
         return allele;
     }
 
-    // Nested class representing information that cannot meaningfully live outside of Gene,
-    // as AlleleInfo only exists to store information about allele in context of its specific locus
+    // Allele is an inner class representing information that cannot meaningfully live outside of Gene,
+    // as Alleles are only meaningful in the context of the Gene/locus they are tied to
     public class Allele {
         private final String alleleSymbol;
         private final int rank;
