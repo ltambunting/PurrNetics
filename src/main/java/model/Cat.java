@@ -1,20 +1,19 @@
 package model;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Cat {
     private String name;
     private final Sex sex;
     private final ParentPair parents;
-    private final Map<Gene, AllelePair> genotype;
+    private final Genotype genotype;
     // to add -> phenotype field (final)
 
-    public Cat(String n, Sex s, ParentPair parents) {
-        this.name = n;
-        this.sex = s;
+    public Cat(String name, Sex sex, ParentPair parents, Genotype genotype) {
+        this.name = name;
+        this.sex = sex;
         this.parents = parents;
-        this.genotype = new HashMap<>();
+        this.genotype = genotype;
     }
 
     // GETTERS
@@ -31,7 +30,7 @@ public class Cat {
     }
 
     public Map<Gene, AllelePair> getGenotype() {
-        return this.genotype;
+        return this.genotype.getInheritedAlleles();
     }
 
     // SETTERS
