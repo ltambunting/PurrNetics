@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Gene {
     }
 
     public Set<Allele> getAlleles() {
-        return this.alleles;
+        return Collections.unmodifiableSet(this.alleles);
     }
 
 
