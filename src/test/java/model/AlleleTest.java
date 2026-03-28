@@ -9,12 +9,14 @@ public class AlleleTest {
     private Gene.Allele a;
     private Trait t1;
     private AutosomalInheritance air;
+    private DominanceRule dominanceRule;
     
     @BeforeEach
     public void setup() {
         air = new AutosomalInheritance();
+        dominanceRule = new CompleteDominance();
         t1 = new Trait("coatLength");
-        g = new Gene("L", t1, air);
+        g = new Gene("L", t1, air, dominanceRule);
         a = g.addAllele("N", 1, "shortHair");
     }
 
@@ -23,6 +25,5 @@ public class AlleleTest {
         assertEquals("N", a.getAlleleSymbol());
         assertEquals(1, a.getRank());
         assertEquals("shortHair", a.getVariant());
-        
     }
 }

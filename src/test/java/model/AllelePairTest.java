@@ -12,6 +12,7 @@ public class AllelePairTest {
     private Gene gene;
     private Trait trait;
     private AutosomalInheritance autosomalInheritance;
+    private DominanceRule dominanceRule;
     private Gene.Allele allele1;
     private Gene.Allele allele2;
     private AllelePair allelePair;
@@ -21,7 +22,8 @@ public class AllelePairTest {
         random = new Random(67);
         trait = new Trait("coatLength");
         autosomalInheritance = new AutosomalInheritance();
-        gene = new Gene("L", trait, autosomalInheritance);
+        dominanceRule = new CompleteDominance();
+        gene = new Gene("L", trait, autosomalInheritance, dominanceRule);
         allele1 = gene.addAllele("Ls", 1, "shortHair");
         allele2 = gene.addAllele("Ll", 0, "longHair");
         allelePair = new AllelePair(allele1, allele2);

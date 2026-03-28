@@ -6,20 +6,23 @@ import org.junit.jupiter.api.Test;
 
 
 public class GeneTest {
-    private Trait t;
+    private Trait trait;
     private Gene g;
-    private AutosomalInheritance air;
+    private InheritanceRule autosomalInheritance;
+    private DominanceRule completeDominance;
     
     @BeforeEach
     public void setup() {
-        g = new Gene("L", t, air);
+        autosomalInheritance = new AutosomalInheritance();
+        completeDominance = new CompleteDominance();
+        g = new Gene("L", trait, autosomalInheritance, completeDominance);
     }
 
     @Test
     public void getterTestsTrivial() {
         assertEquals("L", g.getSymbol());
-        assertEquals(t, g.getTrait());
-        assertEquals(air, g.getInheritanceRule());
+        assertEquals(trait, g.getTrait());
+        assertEquals(autosomalInheritance, g.getInheritanceRule());
     }
 
     @Test

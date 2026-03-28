@@ -8,15 +8,14 @@ public class Gene {
     private final String symbol;
     private final Trait trait;
     private final InheritanceRule inheritanceRule;
-    // because the interaction between alleles at a single locus/gene is
-    // what determines if it is dominant, recessive, or other, the information
-    // should be stored here in Gene class as nested class for better modularity
+    private final DominanceRule dominanceRule;
     private Set<Allele> alleles; // holds all known alleles of this locus and its information in context of gene
 
-    public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule) {
+    public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule, DominanceRule dominanceRule) {
         this.symbol = symbol;
         this.trait = trait; // represents trait/phenotype that locus determines
         this.inheritanceRule = inheritanceRule;
+        this.dominanceRule = dominanceRule;
         this.alleles = new HashSet<>();
     }
 
@@ -31,6 +30,10 @@ public class Gene {
 
     public InheritanceRule getInheritanceRule() {
         return this.inheritanceRule;
+    }
+
+    public DominanceRule getDominanceRule() {
+        return this.dominanceRule;
     }
 
     public Set<Allele> getAlleles() {
