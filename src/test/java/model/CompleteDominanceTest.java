@@ -165,7 +165,7 @@ public class CompleteDominanceTest {
     }
 
     @Test
-    public void homozygousDominanthybridCrossDistributionTest() {
+    public void homozygousDominantMonohybridCrossDistributionTest() {
         // expect 1:0 ratio of dominant to recessive trait
         AllelePair homozygousDominant = new AllelePair(dominantAllele, dominantAllele);
         AllelePair hybrid = new AllelePair(dominantAllele, recessiveAllele);
@@ -192,7 +192,7 @@ public class CompleteDominanceTest {
     }
 
     @Test
-    public void homozygousRecessiveDihybridCrossDistributionTest() {
+    public void homozygousRecessiveMonohybridCrossDistributionTest() {
         // expect 1:1 ratio of dominant to recessive trait
         AllelePair homozygousRecessive = new AllelePair(recessiveAllele, recessiveAllele);
         AllelePair hybrid = new AllelePair(dominantAllele, recessiveAllele);

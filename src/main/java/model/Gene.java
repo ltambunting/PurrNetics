@@ -6,14 +6,14 @@ import java.util.Set;
 
 public class Gene {
     private final String symbol;
-    private final Trait trait;
+    private final Trait trait; // represents trait/phenotype that locus determines
     private final InheritanceRule inheritanceRule;
     private final DominanceRule dominanceRule;
-    private Set<Allele> alleles; // holds all known alleles of this locus and its information in context of gene
+    private final Set<Allele> alleles; // holds all known alleles of this locus and its information in context of gene
 
     public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule, DominanceRule dominanceRule) {
         this.symbol = symbol;
-        this.trait = trait; // represents trait/phenotype that locus determines
+        this.trait = trait; 
         this.inheritanceRule = inheritanceRule;
         this.dominanceRule = dominanceRule;
         this.alleles = new HashSet<>();
