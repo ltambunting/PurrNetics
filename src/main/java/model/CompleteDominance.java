@@ -6,14 +6,22 @@ public class CompleteDominance implements DominanceRule {
     // REQUIRES: genotype != null
     @Override
     public String resolvePhenotype(AllelePair allelePair) {
-        Gene.Allele maternalCopy = allelePair.getMaternalAllele();
-        Gene.Allele paternalCopy = allelePair.getPaternalAllele();
-        if (maternalCopy.getRank() > paternalCopy.getRank()) {
-            return maternalCopy.getVariant(); // maternal copy is dominant and now we express maternal variant
-        } else if (paternalCopy.getRank() > maternalCopy.getRank()) {
-            return paternalCopy.getVariant(); // paternal copy dominant now we express paternal variant
+        Gene.Allele a = allelePair.getMaternalAllele();
+        Gene.Allele b = allelePair.getPaternalAllele();
+
+        // if same allele, express it
+        if (a.getAlleleSymbol().equals(b.getAlleleSymbol())) {
+            return a.getVariant();
         }
-        return maternalCopy.getVariant(); // both parents provide the same allele variant,
-                                          // so arbitrarily return maternal variant
+
+        // compare dominance rank between alleles
+        if (a.getRank() > b.getRank()) {
+            return a.getVariant();
+        } else if (b.getRank() > a.getRank()) {
+            return b.getVariant();
+        }
+
+        // if equal rank, default detministic fallback
+        return a.getVariant();
     }
 }
