@@ -23,9 +23,11 @@ public class CatTest {
     private Gene.Allele allele1Gene2;
     private Gene.Allele allele2Gene2;
     private Genotype genotype;
+    private Phenotype phenotype;
     private AllelePair allelePair1;
     private AllelePair allelePair2;
     private Map<Gene, AllelePair> genotypeMap;
+    private Map<Trait, String> phenotypeMap;
     private Cat catMom;
     private Cat catDad;
     private Cat cat1;
@@ -58,11 +60,17 @@ public class CatTest {
 
         genotype = new Genotype(genotypeMap);
 
-        catMom = new Cat("Lucy", Sex.FEMALE, null, genotype);
-        catDad = new Cat("Jotaro", Sex.MALE, null, genotype);
+        phenotypeMap = new HashMap<>();
+        phenotypeMap.put(trait1, TRAIT_VARIANT1_GENE1);
+        phenotypeMap.put(trait2, TRAIT_VARIANT1_GENE2);
+
+        phenotype = new Phenotype(phenotypeMap);
+
+        catMom = new Cat("Lucy", Sex.FEMALE, null, genotype, phenotype);
+        catDad = new Cat("Jotaro", Sex.MALE, null, genotype, phenotype);
         parentPair = new ParentPair(catDad, catMom);
 
-        cat1 = new Cat("Jolyne", Sex.FEMALE, parentPair, genotype);  
+        cat1 = new Cat("Jolyne", Sex.FEMALE, parentPair, genotype, phenotype);  
         
     }
 
@@ -72,6 +80,7 @@ public class CatTest {
         assertEquals(Sex.FEMALE, cat1.getSex());
         assertEquals(parentPair, cat1.getParents());
         assertEquals(genotypeMap, cat1.getGenotype());
+        assertEquals(phenotypeMap, cat1.getPhenotype());
 
     }
 

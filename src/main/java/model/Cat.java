@@ -7,13 +7,14 @@ public class Cat {
     private final Sex sex;
     private final ParentPair parents;
     private final Genotype genotype;
-    // to add -> phenotype field (final)
+    private final Phenotype phenotype;
 
-    public Cat(String name, Sex sex, ParentPair parents, Genotype genotype) {
+    public Cat(String name, Sex sex, ParentPair parents, Genotype genotype, Phenotype phenotype) {
         this.name = name;
         this.sex = sex;
         this.parents = parents;
         this.genotype = genotype;
+        this.phenotype = phenotype;
     }
 
     // GETTERS
@@ -31,6 +32,10 @@ public class Cat {
 
     public Map<Gene, AllelePair> getGenotype() {
         return this.genotype.getInheritedAlleles();
+    }
+
+    public Map<Trait, String> getPhenotype() {
+        return this.phenotype.getExpressedVariants();
     }
 
     // SETTERS
