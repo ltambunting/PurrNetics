@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Map;
-
 public class Cat {
     private String name;
     private final Sex sex;
@@ -30,12 +28,12 @@ public class Cat {
         return this.parents;
     }
 
-    public Map<Gene, AllelePair> getGenotype() {
-        return this.genotype.getInheritedAlleles();
+    public Genotype getGenotype() {
+        return this.genotype;
     }
 
-    public Map<Trait, String> getPhenotype() {
-        return this.phenotype.getExpressedVariants();
+    public Phenotype getPhenotype() {
+        return this.phenotype;
     }
 
     // SETTERS

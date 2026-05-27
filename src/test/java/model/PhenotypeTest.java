@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,5 +52,20 @@ public class PhenotypeTest {
     public void phenotypeGetterTest() {
         assertEquals(phenotypeMap1, phenotype1.getExpressedVariants());
         assertEquals(phenotypeMap2, phenotype2.getExpressedVariants());
+    }
+
+    @Test
+    public void getExpressedVariantOneTrait() {
+        assertTrue(phenotype1.getExpressedVariant(trait1).equals("ShortHair"));
+        assertFalse(phenotype1.getExpressedVariant(trait1).equals("LongHair"));
+    }
+
+    @Test
+    public void getExpressedVariantMultipleTraitsTest() {
+        assertTrue(phenotype1.getExpressedVariant(trait1).equals("ShortHair"));
+        assertFalse(phenotype1.getExpressedVariant(trait1).equals("LongHair"));
+        assertTrue(phenotype1.getExpressedVariant(trait2).equals("Gold"));
+        assertFalse(phenotype1.getExpressedVariant(trait1).equals("Green"));
+        assertFalse(phenotype1.getExpressedVariant(trait1).equals("Blue"));
     }
 }

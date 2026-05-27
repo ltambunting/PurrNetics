@@ -13,4 +13,9 @@ public class Phenotype {
     public Map<Trait, String> getExpressedVariants() {
         return Collections.unmodifiableMap(expressedVariants);
     }
+
+    // For particular phenotype, return expressed variant given trait
+    public String getExpressedVariant(Trait trait) {
+        return getExpressedVariants().get(trait);
+    }
 }
