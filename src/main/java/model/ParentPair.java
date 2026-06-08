@@ -27,13 +27,4 @@ public class ParentPair {
         return this.offspring;
     }
 
-    // EFFECTS: generates a specified number (n) of offspring from this parent pair
-    // REQURIES: n >= 0
-    // MODIFIES: this.offspring
-    public void generateOffspring(Integer n) {
-        // STUB
-    }
-
-
-
 }

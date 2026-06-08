@@ -68,7 +68,7 @@ public class CatTest {
 
         catMom = new Cat("Lucy", Sex.FEMALE, null, genotype, phenotype);
         catDad = new Cat("Jotaro", Sex.MALE, null, genotype, phenotype);
-        parentPair = new ParentPair(catDad, catMom);
+        parentPair = new ParentPair(catMom, catDad);
 
         cat1 = new Cat("Jolyne", Sex.FEMALE, parentPair, genotype, phenotype);  
         
@@ -79,8 +79,8 @@ public class CatTest {
         assertEquals("Jolyne", cat1.getName());
         assertEquals(Sex.FEMALE, cat1.getSex());
         assertEquals(parentPair, cat1.getParents());
-        assertEquals(genotypeMap, cat1.getGenotype());
-        assertEquals(phenotypeMap, cat1.getPhenotype());
+        assertEquals(genotype, cat1.getGenotype());
+        assertEquals(phenotype, cat1.getPhenotype());
 
     }
 
