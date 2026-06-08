@@ -140,6 +140,27 @@ public class SimulationEngineTest {
             }
         }
 
+        String dominantCoatLengthDominantEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_CURLED;
+        String dominantCoatLengthRecessiveEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_STRAIGHT;
+        String recessiveCoatLengthDominantEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + EAR_CURL_CURLED;
+        String recessiveCoatLengthRecessiveEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + EAR_CURL_STRAIGHT;
+
+        Map<String, Integer> observedCountMap = new HashMap<>();
+        observedCountMap.put(dominantCoatLengthDominantEarCurlString, dominantCoatLengthDominantEarCurlCount);
+        observedCountMap.put(dominantCoatLengthRecessiveEarCurlString, dominantCoatLengthRecessiveEarCurlCount);
+        observedCountMap.put(recessiveCoatLengthDominantEarCurlString, recessiveCoatLengthDominantEarCurlCount);
+        observedCountMap.put(recessiveCoatLengthRecessiveEarCurlString, recessiveCoatLengthRecessiveEarCurlCount);
+
+        Map<String, Double> expectedPhenotypeProportionMap = new HashMap<>();
+        expectedPhenotypeProportionMap.put(dominantCoatLengthDominantEarCurlString, 9.0/16.0);
+        expectedPhenotypeProportionMap.put(dominantCoatLengthRecessiveEarCurlString, 3.0/16.0);
+        expectedPhenotypeProportionMap.put(recessiveCoatLengthDominantEarCurlString, 3.0/16.0);
+        expectedPhenotypeProportionMap.put(recessiveCoatLengthRecessiveEarCurlString, 1.0/16.0);
+
+        double chiSquareValue = calculateChiSquare(observedCountMap, expectedPhenotypeProportionMap);
+        assertTrue(chiSquareValue > CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005); // ensure that chi square value is above critical value therefore reject null hypothesis
+                                                                                // and the result is statistically significant
+
     }
 
     public List<Cat> breedManyTimesHelper(ParentPair parents, int count) {
