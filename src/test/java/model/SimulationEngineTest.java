@@ -158,9 +158,10 @@ public class SimulationEngineTest {
         expectedPhenotypeProportionMap.put(recessiveCoatLengthRecessiveEarCurlString, 1.0/16.0);
 
         double chiSquareValue = calculateChiSquare(observedCountMap, expectedPhenotypeProportionMap);
-        assertTrue(chiSquareValue > CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005); // ensure that chi square value is above critical value therefore reject null hypothesis
-                                                                                // and the result is statistically significant
-
+        System.out.println(chiSquareValue);
+        System.out.println(observedCountMap);
+        assertTrue(chiSquareValue < CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005); // ensure that chi square value is below critical value therefore not reject null hypothesis
+                                                                                // and the result is consistent with the expected 9:3:3:1 ratio
     }
 
     public List<Cat> breedManyTimesHelper(ParentPair parents, int count) {
@@ -191,7 +192,6 @@ public class SimulationEngineTest {
         for (String category : observedCounts.keySet()) {
             double observed = observedCounts.get(category);
             double expected = expectedProportions.get(category) * total;
-
             double difference = observed - expected;
 
             chiSquare += (difference * difference) / expected;

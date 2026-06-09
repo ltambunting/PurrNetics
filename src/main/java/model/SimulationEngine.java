@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -48,6 +50,25 @@ public class SimulationEngine {
     //          based on genetic rules defined at each gene locus
     // MODIFIES: ParentPair.offspring
     public Cat breed(ParentPair parentPair) {
-        return null; // STUB
+        Genotype motherGenotype = parentPair.getMother().getGenotype();
+        Genotype fatherGenotype = parentPair.getFather().getGenotype();
+
+        Map<Gene, AllelePair> childGenotypeInheritedAlleles = new HashMap<>();
+        Map<Trait, String> childPhenotypeMap = new HashMap<>();
+
+        // assume number of genes equal
+        for (Gene gene : motherGenotype.getInheritedAlleles().keySet()) {
+            AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
+            AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
+            
+            AllelePair inheritedAllelePair = gene.getInheritanceRule().inherit(motherAllelePair, fatherAllelePair, random);
+            String expressedTraitVariant = gene.getDominanceRule().resolvePhenotype(inheritedAllelePair);
+
+            childGenotypeInheritedAlleles.put(gene, inheritedAllelePair);
+            childPhenotypeMap.put(gene.getTrait(), expressedTraitVariant);
+        }
+        Cat child = new Cat(null, Sex.FEMALE, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
+        parentPair.getOffspring().add(child);
+        return child;
     }
 }
