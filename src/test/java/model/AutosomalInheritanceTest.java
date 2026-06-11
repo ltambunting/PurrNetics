@@ -16,7 +16,7 @@ public class AutosomalInheritanceTest {
     private Gene gene;
     private Trait trait;
     private AutosomalInheritance autosomalInheritance;
-    private DominanceRule completeDominance;
+    private ExpressionRule completeDominance;
     private Gene.Allele dominantAllele;
     private Gene.Allele recessiveAllele;
 

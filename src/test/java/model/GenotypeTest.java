@@ -17,7 +17,7 @@ public class GenotypeTest {
     private Trait trait1;
     private Trait trait2;
     private InheritanceRule autosomalInheritance;
-    private DominanceRule completeDominance;
+    private ExpressionRule completeDominance;
     private Gene.Allele allele1Gene1;
     private Gene.Allele allele2Gene1;
     private Gene.Allele allele1Gene2;

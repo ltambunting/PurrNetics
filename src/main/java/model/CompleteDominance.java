@@ -1,6 +1,6 @@
 package model;
 
-public class CompleteDominance implements DominanceRule {
+public class CompleteDominance implements ExpressionRule {
     // EFFECT: if two copies of recessive allele, return recessive trait
     //         otherwise, return dominant trait
     // REQUIRES: genotype != null

@@ -9,7 +9,7 @@ public class AlleleTest {
     private Gene.Allele a;
     private Trait t1;
     private AutosomalInheritance air;
-    private DominanceRule dominanceRule;
+    private ExpressionRule dominanceRule;
     
     @BeforeEach
     public void setup() {

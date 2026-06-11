@@ -12,7 +12,7 @@ public class AllelePairTest {
     private Gene gene;
     private Trait trait;
     private AutosomalInheritance autosomalInheritance;
-    private DominanceRule dominanceRule;
+    private ExpressionRule dominanceRule;
     private Gene.Allele allele1;
     private Gene.Allele allele2;
     private AllelePair allelePair;

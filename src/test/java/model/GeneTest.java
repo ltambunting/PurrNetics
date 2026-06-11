@@ -9,7 +9,7 @@ public class GeneTest {
     private Trait trait;
     private Gene g;
     private InheritanceRule autosomalInheritance;
-    private DominanceRule completeDominance;
+    private ExpressionRule completeDominance;
     
     @BeforeEach
     public void setup() {

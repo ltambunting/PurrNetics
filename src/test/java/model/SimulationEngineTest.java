@@ -26,7 +26,7 @@ public class SimulationEngineTest {
     private Trait coatLengthTrait;
     private Trait earCurlTrait;
     private InheritanceRule autosomalInheritance;
-    private DominanceRule completeDominance;
+    private ExpressionRule completeDominance;
     private Gene.Allele shortHairAllele;
     private Gene.Allele longHairAllele;
     private Gene.Allele curledEarsAllele;
