@@ -38,10 +38,8 @@ public class SimulationEngineTest {
     private Map<Gene, AllelePair> genotypeMap;
     private Map<Trait, String> phenotypeMap;
     private int numCatsDistributionTest = 10000;
-    private int expectedPhenotypesDihybrid = 4;
-    private double alpha = 0.05;
     private static final double CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005 = 7.815;
-
+    private static final double CHI_SQUARE_CRITICAL_VALUE_DF1_ALPHA_005 = 3.841;
 
     @BeforeEach
     void setup() {
@@ -127,6 +125,9 @@ public class SimulationEngineTest {
         int recessiveCoatLengthDominantEarCurlCount = 0; // long hair, curled ears
         int recessiveCoatLengthRecessiveEarCurlCount = 0; // long hair, non curled ears
 
+        int femaleKittensCount = 0;
+        int maleKittensCount = 0;
+
         for (Cat kitten : kittens) {
             Phenotype kittenPhenotype = kitten.getPhenotype();
             if (hasCurledEars(kittenPhenotype) && hasShortHair(kittenPhenotype)) {
@@ -138,7 +139,29 @@ public class SimulationEngineTest {
             } else if (!hasCurledEars(kittenPhenotype) && !hasShortHair(kittenPhenotype)) {
                 recessiveCoatLengthRecessiveEarCurlCount++;
             }
+
+            Sex kittenSex = kitten.getSex();
+            if (kittenSex == Sex.FEMALE) {
+                femaleKittensCount++;
+            } else if (kittenSex == Sex.MALE) {
+                maleKittensCount++;
+            }
         }
+
+        String femaleKittenString = "Female";
+        String maleKittenString = "Male";
+
+        Map<String, Integer> observedSexCountMap = new HashMap<>();
+        observedSexCountMap.put(femaleKittenString, femaleKittensCount);
+        observedSexCountMap.put(maleKittenString, maleKittensCount);
+
+        Map<String, Double> expectedSexProportionMap = new HashMap<>();
+        expectedSexProportionMap.put(femaleKittenString, 1.0/2.0);
+        expectedSexProportionMap.put(maleKittenString, 1.0/2.0);
+
+        double chiSquareValueSex = calculateChiSquare(observedSexCountMap, expectedSexProportionMap);
+        assertTrue(chiSquareValueSex < CHI_SQUARE_CRITICAL_VALUE_DF1_ALPHA_005);
+
 
         String dominantCoatLengthDominantEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_CURLED;
         String dominantCoatLengthRecessiveEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_STRAIGHT;
@@ -158,8 +181,6 @@ public class SimulationEngineTest {
         expectedPhenotypeProportionMap.put(recessiveCoatLengthRecessiveEarCurlString, 1.0/16.0);
 
         double chiSquareValue = calculateChiSquare(observedCountMap, expectedPhenotypeProportionMap);
-        System.out.println(chiSquareValue);
-        System.out.println(observedCountMap);
         assertTrue(chiSquareValue < CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005); // ensure that chi square value is below critical value therefore not reject null hypothesis
                                                                                 // and the result is consistent with the expected 9:3:3:1 ratio
     }

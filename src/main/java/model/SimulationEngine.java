@@ -41,10 +41,6 @@ public class SimulationEngine {
         this.random = random; // stores randomly generated value for reproducibility and testing purposes
     }
 
-    // need function that will take parent cat pair and produce offspring -> helpers to facilitate pipeline between inherit -> building offspring genotype profile (through inheritance rules) -> 
-    // building offspring phenotype profile (through dominance rules of each gene) -> giving back cat
-
-
     // EFFECTS: simulates single fertilization event between two parent cats 
     //          and generates one offspring with inherited genotype and resolved phenotype
     //          based on genetic rules defined at each gene locus
@@ -56,7 +52,9 @@ public class SimulationEngine {
         Map<Gene, AllelePair> childGenotypeInheritedAlleles = new HashMap<>();
         Map<Trait, String> childPhenotypeMap = new HashMap<>();
 
-        // assume number of genes equal
+        Sex sex = assignSex();
+
+        // assume number of genes equal (in typical mammals chromosomes are set amount therefore genes too)
         for (Gene gene : motherGenotype.getInheritedAlleles().keySet()) {
             AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
             AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
@@ -67,8 +65,17 @@ public class SimulationEngine {
             childGenotypeInheritedAlleles.put(gene, inheritedAllelePair);
             childPhenotypeMap.put(gene.getTrait(), expressedTraitVariant);
         }
-        Cat child = new Cat(null, Sex.FEMALE, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
+        Cat child = new Cat(null, sex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
         parentPair.getOffspring().add(child);
         return child;
+    }
+
+    private Sex assignSex() {
+        int value = random.nextInt(2); // return int between 0 and 1
+        if (value == 0) {
+            return Sex.FEMALE;
+        } else {
+            return Sex.MALE;
+        }
     }
 }
