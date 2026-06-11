@@ -7,7 +7,7 @@ public class AutosomalInheritance implements InheritanceRule {
     //         based on autosomal mode of inheritance
     // REQUIRES: maternal != null and paternal != null
     @Override
-    public AllelePair inherit(AllelePair maternal, AllelePair paternal, Random random) {
+    public AllelePair inherit(AllelePair maternal, AllelePair paternal, Sex offspringSex, Random random) {
         Gene.Allele maternalCopy = maternal.getRandomAllele(random);
         Gene.Allele paternalCopy = paternal.getRandomAllele(random);
         AllelePair offspringAllelePair = new AllelePair(maternalCopy, paternalCopy);

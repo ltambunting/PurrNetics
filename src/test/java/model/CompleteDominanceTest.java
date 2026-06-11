@@ -221,7 +221,7 @@ public class CompleteDominanceTest {
     public List<AllelePair> makeManyOffspringAllelePairsHelper(AllelePair allelepair1, AllelePair allelepair2) {
         List<AllelePair> offspringAllelePairs = new ArrayList<>();
         for (int i = 0; i < ITERATIONS; i++) {
-            AllelePair offspring = autosomalInheritance.inherit(allelepair1, allelepair2, random);
+            AllelePair offspring = autosomalInheritance.inherit(allelepair1, allelepair2, Sex.FEMALE, random);
             offspringAllelePairs.add(offspring);
         }
         return offspringAllelePairs;

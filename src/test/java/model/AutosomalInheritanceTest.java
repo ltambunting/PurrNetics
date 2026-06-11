@@ -25,6 +25,7 @@ public class AutosomalInheritanceTest {
         random = new Random(67);
         trait = new Trait("coatLength");
         autosomalInheritance = new AutosomalInheritance();
+        completeDominance = new CompleteDominance();
         trait.addTraitVariant("shortHair");
         gene = new Gene("L", trait, autosomalInheritance, completeDominance);
         dominantAllele = gene.addAllele("D", 1, DOMINANT_TRAIT);
@@ -35,7 +36,7 @@ public class AutosomalInheritanceTest {
     public void inheritOnePairTrivialTest() {
         AllelePair maternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
         AllelePair paternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
-        AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, random);
+        AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
         Gene.Allele maternal = offspring.getMaternalAllele();
         Gene.Allele paternal = offspring.getPaternalAllele();
         assertTrue((maternal == dominantAllele || maternal == recessiveAllele) && (paternal == dominantAllele || paternal == recessiveAllele));
@@ -52,7 +53,7 @@ public class AutosomalInheritanceTest {
         int numAA = 0, numAa = 0, numaA = 0, numaa = 0;
 
         for (int i = 0; i < ITERATIONS; i++) {
-            AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, random);
+            AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
             Gene.Allele maternal = offspring.getMaternalAllele();
             Gene.Allele paternal = offspring.getPaternalAllele();
             if (maternal == dominantAllele && paternal == dominantAllele) {

@@ -52,20 +52,20 @@ public class SimulationEngine {
         Map<Gene, AllelePair> childGenotypeInheritedAlleles = new HashMap<>();
         Map<Trait, String> childPhenotypeMap = new HashMap<>();
 
-        Sex sex = assignSex();
+        Sex offspringSex = assignSex();
 
         // assume number of genes equal (in typical mammals chromosomes are set amount therefore genes too)
         for (Gene gene : motherGenotype.getInheritedAlleles().keySet()) {
             AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
             AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
             
-            AllelePair inheritedAllelePair = gene.getInheritanceRule().inherit(motherAllelePair, fatherAllelePair, random);
+            AllelePair inheritedAllelePair = gene.getInheritanceRule().inherit(motherAllelePair, fatherAllelePair, offspringSex, random);
             String expressedTraitVariant = gene.getDominanceRule().resolvePhenotype(inheritedAllelePair);
 
             childGenotypeInheritedAlleles.put(gene, inheritedAllelePair);
             childPhenotypeMap.put(gene.getTrait(), expressedTraitVariant);
         }
-        Cat child = new Cat(null, sex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
+        Cat child = new Cat(null, offspringSex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
         parentPair.getOffspring().add(child);
         return child;
     }
