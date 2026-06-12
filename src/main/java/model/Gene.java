@@ -8,14 +8,14 @@ public class Gene {
     private final String symbol;
     private final Trait trait; // represents trait/phenotype that locus determines
     private final InheritanceRule inheritanceRule;
-    private final ExpressionRule dominanceRule;
+    private final ExpressionRule expressionRule;
     private final Set<Allele> alleles; // holds all known alleles of this locus and its information in context of gene
 
-    public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule, ExpressionRule dominanceRule) {
+    public Gene(String symbol, Trait trait, InheritanceRule inheritanceRule, ExpressionRule expressionRule) {
         this.symbol = symbol;
         this.trait = trait; 
         this.inheritanceRule = inheritanceRule;
-        this.dominanceRule = dominanceRule;
+        this.expressionRule = expressionRule;
         this.alleles = new HashSet<>();
     }
 
@@ -32,8 +32,8 @@ public class Gene {
         return this.inheritanceRule;
     }
 
-    public ExpressionRule getDominanceRule() {
-        return this.dominanceRule;
+    public ExpressionRule getExpressionRule() {
+        return this.expressionRule;
     }
 
     public Set<Allele> getAlleles() {
