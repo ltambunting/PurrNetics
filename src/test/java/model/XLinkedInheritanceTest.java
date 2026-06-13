@@ -60,7 +60,7 @@ public class XLinkedInheritanceTest {
         Gene.Allele paternalInheritedAllele = offspringAllelePair.getPaternalAllele();
 
         assertTrue(maternalInheritedAllele == maternalAllelePair.getMaternalAllele() || maternalInheritedAllele == maternalAllelePair.getPaternalAllele());
-        assertEquals(paternalAllelePair.getMaternalAllele(), paternalInheritedAllele);
+        assertEquals(paternalAllelePair.getPaternalAllele(), paternalInheritedAllele);
     }
 
     // verify maternal X alleles are inherited with approximately equal probability in daughters
