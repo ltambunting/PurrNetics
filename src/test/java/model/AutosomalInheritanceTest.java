@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,6 +45,45 @@ public class AutosomalInheritanceTest {
     }
 
     @Test
+    public void homozygousDominantCrossAlwaysProducesAAGenotypeTest() {
+        AllelePair maternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
+        AllelePair paternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
+
+        Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
+
+        assertTrue(genotypeCountMap.get("AA") == ITERATIONS);
+        assertTrue(genotypeCountMap.get("Aa") == 0);
+        assertTrue(genotypeCountMap.get("aA") == 0);
+        assertTrue(genotypeCountMap.get("aa") == 0);
+
+    }
+
+    @Test
+    public void homozygousRecessiveCrossAlwaysProducesaaGenotypeTest() {
+        AllelePair maternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
+        AllelePair paternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
+
+        Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
+
+        assertTrue(genotypeCountMap.get("AA") == 0);
+        assertTrue(genotypeCountMap.get("Aa") == 0);
+        assertTrue(genotypeCountMap.get("aA") == 0);
+        assertTrue(genotypeCountMap.get("aa") == ITERATIONS);
+    }
+
+    @Test
+    public void AAXaaAlwaysProducesAaGenotypeTest() {
+        AllelePair maternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
+        AllelePair paternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
+
+        Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
+
+        assertTrue(genotypeCountMap.get("AA") == 0);
+        assertTrue(genotypeCountMap.get("Aa") + genotypeCountMap.get("aA") == ITERATIONS);
+        assertTrue(genotypeCountMap.get("aa") == 0);
+    }
+
+    @Test
     public void getAlleleDistributionTest() {
         // see if after many calls if allele combination distribution is 1:1:1:1 for
         // AA, Aa, aA, aa to verify independent assortment. Cross is represented by standard
@@ -50,6 +91,21 @@ public class AutosomalInheritanceTest {
         AllelePair maternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
         AllelePair paternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
 
+        Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
+
+        double percentNumAA = (double) genotypeCountMap.get("AA") / ITERATIONS;
+        double percentNumAa = (double) genotypeCountMap.get("Aa") / ITERATIONS;
+        double percentNumaA = (double) genotypeCountMap.get("aA") / ITERATIONS;
+        double percentNumaa = (double) genotypeCountMap.get("aa") / ITERATIONS;
+
+        assertTrue(percentNumAA > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumAA < UPPER_BOUND_ALLELE_DISTRIBUTION);
+        assertTrue(percentNumAa > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumAa < UPPER_BOUND_ALLELE_DISTRIBUTION);
+        assertTrue(percentNumaA > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumaA < UPPER_BOUND_ALLELE_DISTRIBUTION);
+        assertTrue(percentNumaa > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumaa < UPPER_BOUND_ALLELE_DISTRIBUTION);
+
+    }
+
+    public Map<String, Integer> repeatInheritanceAndCountGenotypesHelper(AllelePair maternalAllelePair, AllelePair paternalAllelePair) {
         int numAA = 0, numAa = 0, numaA = 0, numaa = 0;
 
         for (int i = 0; i < ITERATIONS; i++) {
@@ -67,15 +123,12 @@ public class AutosomalInheritanceTest {
             }
         }
 
-        double percentNumAA = (double) numAA / ITERATIONS; // cast to double to prevent integer division
-        double percentNumAa = (double) numAa / ITERATIONS;
-        double percentNumaA = (double) numaA / ITERATIONS;
-        double percentNumaa = (double) numaa / ITERATIONS;
+        Map<String, Integer> genotypeCountsMap = new HashMap<>();
+        genotypeCountsMap.put("AA", numAA);
+        genotypeCountsMap.put("Aa", numAa);
+        genotypeCountsMap.put("aA", numaA);
+        genotypeCountsMap.put("aa", numaa);
 
-        assertTrue(percentNumAA > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumAA < UPPER_BOUND_ALLELE_DISTRIBUTION);
-        assertTrue(percentNumAa > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumAa < UPPER_BOUND_ALLELE_DISTRIBUTION);
-        assertTrue(percentNumaA > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumaA < UPPER_BOUND_ALLELE_DISTRIBUTION);
-        assertTrue(percentNumaa > LOWER_BOUND_ALLELE_DISTRIBUTION && percentNumaa < UPPER_BOUND_ALLELE_DISTRIBUTION);
-
+        return genotypeCountsMap;
     }
 }
