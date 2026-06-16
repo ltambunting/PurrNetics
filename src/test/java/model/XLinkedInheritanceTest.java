@@ -34,15 +34,15 @@ public class XLinkedInheritanceTest {
         gene = new Gene("O", trait, xLinkedInheritance, completeDominance);
         orangeAllele = gene.addAllele("O", 1, ORANGE_TRAIT);
         nonOrangeAllele = gene.addAllele("o", 1, NON_ORANGE_TRAIT);
-        maternalAllelePair = new AllelePair(orangeAllele, nonOrangeAllele);
+        maternalAllelePair = new AllelePair(gene, orangeAllele, nonOrangeAllele);
         // paternal X-linked chromosome: second allele is absent (hemizygous Y-side)
-        paternalAllelePair = new AllelePair(orangeAllele, null);
+        paternalAllelePair = new AllelePair(gene, orangeAllele, null);
     }
 
     // verify daughters inherit a maternal X and father's X chromosome -> invariant
     @Test
     public void femaleOffspringInheritsMaternalXPaternalX() {
-        AllelePair offspringAllelePair = xLinkedInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
+        AllelePair offspringAllelePair = xLinkedInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
 
         Gene.Allele maternalInheritedAllele = offspringAllelePair.getMaternalAllele();
         Gene.Allele paternalInheritedAllele = offspringAllelePair.getPaternalAllele();
@@ -54,7 +54,7 @@ public class XLinkedInheritanceTest {
     // verify sons inherit a maternal X and father's Y chromosme -> invariant
     @Test
     public void maleOffspringInheritsMaternalXPaternalY() {
-        AllelePair offspringAllelePair = xLinkedInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.MALE, random);
+        AllelePair offspringAllelePair = xLinkedInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.MALE, random);
 
         Gene.Allele maternalInheritedAllele = offspringAllelePair.getMaternalAllele();
         Gene.Allele paternalInheritedAllele = offspringAllelePair.getPaternalAllele();
@@ -68,7 +68,7 @@ public class XLinkedInheritanceTest {
     public void xLinkedInheritanceMaternalAlleleDistributionOfFemaleOffspring() {
         int numMaternalOrangeAlleles = 0, numMaternalNonOrangeAlleles = 0;
         for (int i = 0; i < ITERATIONS; i++) {
-            AllelePair offspringAllelePair = xLinkedInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
+            AllelePair offspringAllelePair = xLinkedInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
             Gene.Allele maternalInheritedAllele = offspringAllelePair.getMaternalAllele();
 
             if (maternalInheritedAllele == orangeAllele) {
@@ -89,7 +89,7 @@ public class XLinkedInheritanceTest {
     public void xLinkedInheritanceMaternalAlleleDistributionOfMaleOffspring() {
         int numMaternalOrangeAlleles = 0, numMaternalNonOrangeAlleles = 0;
         for (int i = 0; i < ITERATIONS; i++) {
-            AllelePair offspringAllelePair = xLinkedInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.MALE, random);
+            AllelePair offspringAllelePair = xLinkedInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.MALE, random);
             Gene.Allele maternalInheritedAllele = offspringAllelePair.getMaternalAllele();
 
             if (maternalInheritedAllele == orangeAllele) {
