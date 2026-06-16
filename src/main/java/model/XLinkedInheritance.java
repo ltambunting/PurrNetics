@@ -3,15 +3,17 @@ package model;
 import java.util.Random;
 
 /**
- * Models inheritance of X-linked loci.
+ * Handles X-linked inheritance.
  *
- * Note: male offspring are represented using a special Y placeholder allele
- * to preserve compatibility with the AllelePair-based genotype model.
- * The placeholder does not represent a true allele at this locus; rather,
- * it indicates the absence of a corresponding X-linked allele on the Y chromosome.
+ * Males are hemizygous for X-linked loci and therefore inherit only one X allele.
+ * To maintain a uniform AllelePair representation, the second allele position is
+ * treated as structurally absent (Y-side) rather than modeled as a genetic allele.
+ *
+ * The Y chromosome does not encode an allele for X-linked loci and is not used in
+ * phenotype determination. Note: null is used intentionally to represent absence rather than unknown data.
  */
 public class XLinkedInheritance implements InheritanceRule {
-
+    private static final Gene.Allele NO_X_ALLELE = null;
     @Override
     public AllelePair inherit(AllelePair maternal, AllelePair paternal, Sex offspringSex, Random random) {
         Gene.Allele maternalInheritedAllele = null;
@@ -21,7 +23,7 @@ public class XLinkedInheritance implements InheritanceRule {
             paternalInheritedAllele = paternal.getMaternalAllele();
         } else if (offspringSex == Sex.MALE) {
             maternalInheritedAllele = maternal.getRandomAllele(random);
-            paternalInheritedAllele = paternal.getPaternalAllele();
+            paternalInheritedAllele = NO_X_ALLELE;
 
         }
         return new AllelePair(maternalInheritedAllele, paternalInheritedAllele);

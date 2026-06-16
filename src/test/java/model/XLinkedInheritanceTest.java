@@ -3,6 +3,7 @@ package model;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,6 @@ public class XLinkedInheritanceTest {
     private ExpressionRule completeDominance;
     private Gene.Allele orangeAllele;
     private Gene.Allele nonOrangeAllele;
-    private Gene.Allele yChromosomePlaceholder;
     private AllelePair maternalAllelePair;
     private AllelePair paternalAllelePair;
 
@@ -34,9 +34,9 @@ public class XLinkedInheritanceTest {
         gene = new Gene("O", trait, xLinkedInheritance, completeDominance);
         orangeAllele = gene.addAllele("O", 1, ORANGE_TRAIT);
         nonOrangeAllele = gene.addAllele("o", 1, NON_ORANGE_TRAIT);
-        yChromosomePlaceholder = gene.addAllele("Y", 1, NON_ORANGE_TRAIT);
         maternalAllelePair = new AllelePair(orangeAllele, nonOrangeAllele);
-        paternalAllelePair = new AllelePair(orangeAllele, yChromosomePlaceholder);
+        // paternal X-linked chromosome: second allele is absent (hemizygous Y-side)
+        paternalAllelePair = new AllelePair(orangeAllele, null);
     }
 
     // verify daughters inherit a maternal X and father's X chromosome -> invariant
@@ -60,7 +60,7 @@ public class XLinkedInheritanceTest {
         Gene.Allele paternalInheritedAllele = offspringAllelePair.getPaternalAllele();
 
         assertTrue(maternalInheritedAllele == maternalAllelePair.getMaternalAllele() || maternalInheritedAllele == maternalAllelePair.getPaternalAllele());
-        assertEquals(paternalAllelePair.getPaternalAllele(), paternalInheritedAllele);
+        assertNull(paternalInheritedAllele);
     }
 
     // verify maternal X alleles are inherited with approximately equal probability in daughters
