@@ -21,7 +21,7 @@ public class XLinkedInheritanceTest {
     private ExpressionRule completeDominance;
     private Gene.Allele orangeAllele;
     private Gene.Allele nonOrangeAllele;
-    private Gene.Allele yChromosomeRepresentation;
+    private Gene.Allele yChromosomePlaceholder;
     private AllelePair maternalAllelePair;
     private AllelePair paternalAllelePair;
 
@@ -32,11 +32,11 @@ public class XLinkedInheritanceTest {
         xLinkedInheritance = new XLinkedInheritance();
         completeDominance = new CompleteDominance();
         gene = new Gene("O", trait, xLinkedInheritance, completeDominance);
-        orangeAllele = gene.addAllele("O", 0, ORANGE_TRAIT);
+        orangeAllele = gene.addAllele("O", 1, ORANGE_TRAIT);
         nonOrangeAllele = gene.addAllele("o", 1, NON_ORANGE_TRAIT);
-        yChromosomeRepresentation = gene.addAllele("Y", 1, NON_ORANGE_TRAIT);
+        yChromosomePlaceholder = gene.addAllele("Y", 1, NON_ORANGE_TRAIT);
         maternalAllelePair = new AllelePair(orangeAllele, nonOrangeAllele);
-        paternalAllelePair = new AllelePair(orangeAllele, yChromosomeRepresentation);
+        paternalAllelePair = new AllelePair(orangeAllele, yChromosomePlaceholder);
     }
 
     // verify daughters inherit a maternal X and father's X chromosome -> invariant
