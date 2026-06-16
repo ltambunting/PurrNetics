@@ -59,7 +59,7 @@ public class SimulationEngine {
             AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
             AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
             
-            AllelePair inheritedAllelePair = gene.getInheritanceRule().inherit(motherAllelePair, fatherAllelePair, offspringSex, random);
+            AllelePair inheritedAllelePair = gene.getInheritanceRule().inherit(gene, motherAllelePair, fatherAllelePair, offspringSex, random);
             String expressedTraitVariant = gene.getExpressionRule().resolvePhenotype(inheritedAllelePair);
 
             childGenotypeInheritedAlleles.put(gene, inheritedAllelePair);

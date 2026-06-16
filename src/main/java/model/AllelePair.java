@@ -3,15 +3,21 @@ package model;
 import java.util.Random;
 
 public class AllelePair {
+    private final Gene gene;
     private final Gene.Allele maternalAllele;
     private final Gene.Allele paternalAllele;
 
-    public AllelePair(Gene.Allele maternalAllele, Gene.Allele paternalAllele) {
+    public AllelePair(Gene gene, Gene.Allele maternalAllele, Gene.Allele paternalAllele) {
+        this.gene = gene;
         this.maternalAllele = maternalAllele;
         this.paternalAllele = paternalAllele;
     }
 
     // GETTERS
+    public Gene getGene() {
+        return this.gene;
+    }
+
     public Gene.Allele getMaternalAllele() {
         return this.maternalAllele;
     }

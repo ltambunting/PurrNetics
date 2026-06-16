@@ -33,8 +33,8 @@ public class CompleteDominanceTest {
         @Test
     public void trivialResolvePhenotypeMonohybrid() {
         // If offspring allele pair is Aa or aA, expect dominant trait
-        AllelePair hybrid1 = new AllelePair(recessiveAllele, dominantAllele);
-        AllelePair hybrid2 = new AllelePair(dominantAllele, recessiveAllele);
+        AllelePair hybrid1 = new AllelePair(gene, recessiveAllele, dominantAllele);
+        AllelePair hybrid2 = new AllelePair(gene, dominantAllele, recessiveAllele);
         assertEquals(DOMINANT_TRAIT, completeDominance.resolvePhenotype(hybrid1));
         assertEquals(DOMINANT_TRAIT, completeDominance.resolvePhenotype(hybrid2));
     }
@@ -42,22 +42,22 @@ public class CompleteDominanceTest {
     @Test
     public void trivialResolvePhenotypeHomozygousDominant() {
         // If offspring allele pair is AA, expect dominant trait
-        AllelePair hybrid = new AllelePair(dominantAllele, dominantAllele);
+        AllelePair hybrid = new AllelePair(gene, dominantAllele, dominantAllele);
         assertEquals(DOMINANT_TRAIT, completeDominance.resolvePhenotype(hybrid));
     }
 
     @Test
     public void trivialResolvePhenotypeHomozygousRecessive() {
         // If offspring allele pair is aa, expect recessive trait
-        AllelePair hybrid = new AllelePair(recessiveAllele, recessiveAllele);
+        AllelePair hybrid = new AllelePair(gene, recessiveAllele, recessiveAllele);
         assertEquals(RECESSIVE_TRAIT, completeDominance.resolvePhenotype(hybrid));
     }
 
     @Test
     public void AaAndaAAlwaysProduceSamePhenotypeTest() {
         // should both be dominant phenotype
-        AllelePair allelePairAa = new AllelePair(dominantAllele, recessiveAllele);
-        AllelePair allelePairaA = new AllelePair(recessiveAllele, dominantAllele);
+        AllelePair allelePairAa = new AllelePair(gene, dominantAllele, recessiveAllele);
+        AllelePair allelePairaA = new AllelePair(gene, recessiveAllele, dominantAllele);
 
         for (int i = 0; i < ITERATIONS; i++) {
             String phenotypeAa = completeDominance.resolvePhenotype(allelePairAa);

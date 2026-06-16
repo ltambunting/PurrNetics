@@ -15,7 +15,7 @@ import java.util.Random;
 public class XLinkedInheritance implements InheritanceRule {
     private static final Gene.Allele NO_X_ALLELE = null;
     @Override
-    public AllelePair inherit(AllelePair maternal, AllelePair paternal, Sex offspringSex, Random random) {
+    public AllelePair inherit(Gene gene, AllelePair maternal, AllelePair paternal, Sex offspringSex, Random random) {
         Gene.Allele maternalInheritedAllele = null;
         Gene.Allele paternalInheritedAllele = null;
         if (offspringSex == Sex.FEMALE) {
@@ -26,7 +26,7 @@ public class XLinkedInheritance implements InheritanceRule {
             paternalInheritedAllele = NO_X_ALLELE;
 
         }
-        return new AllelePair(maternalInheritedAllele, paternalInheritedAllele);
+        return new AllelePair(gene, maternalInheritedAllele, paternalInheritedAllele);
     }
 
 }

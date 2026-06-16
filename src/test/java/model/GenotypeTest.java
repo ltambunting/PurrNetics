@@ -41,12 +41,12 @@ public class GenotypeTest {
         gene1 = new Gene("L", trait1, autosomalInheritance, completeDominance);
         allele1Gene1 = gene1.addAllele("L^d", 2, TRAIT_VARIANT1_GENE1);
         allele2Gene1 = gene1.addAllele("L^r", 0, TRAIT_VARIANT2_GENE1);
-        allelePair1 = new AllelePair(allele1Gene1, allele2Gene1);
+        allelePair1 = new AllelePair(gene1, allele1Gene1, allele2Gene1);
 
         gene2 = new Gene("C", trait2, autosomalInheritance, completeDominance);
         allele1Gene2 = gene2.addAllele("C^d", 1, TRAIT_VARIANT1_GENE2);
         allele2Gene2 = gene2.addAllele("C^r", 0, TRAIT_VARIANT2_GENE2);
-        allelePair2 = new AllelePair(allele1Gene2, allele2Gene2);
+        allelePair2 = new AllelePair(gene2, allele1Gene2, allele2Gene2);
 
         genotypeMap = new HashMap<>();
         genotypeMap.put(gene1, allelePair1);

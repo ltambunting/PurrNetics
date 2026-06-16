@@ -36,9 +36,9 @@ public class AutosomalInheritanceTest {
 
     @Test
     public void inheritOnePairTrivialTest() {
-        AllelePair maternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
-        AllelePair paternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
-        AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
+        AllelePair maternalAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
+        AllelePair paternalAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
+        AllelePair offspring = autosomalInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
         Gene.Allele maternal = offspring.getMaternalAllele();
         Gene.Allele paternal = offspring.getPaternalAllele();
         assertTrue((maternal == dominantAllele || maternal == recessiveAllele) && (paternal == dominantAllele || paternal == recessiveAllele));
@@ -46,8 +46,8 @@ public class AutosomalInheritanceTest {
 
     @Test
     public void homozygousDominantCrossAlwaysProducesAAGenotypeTest() {
-        AllelePair maternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
-        AllelePair paternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
+        AllelePair maternalAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
+        AllelePair paternalAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
 
         Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
 
@@ -60,8 +60,8 @@ public class AutosomalInheritanceTest {
 
     @Test
     public void homozygousRecessiveCrossAlwaysProducesaaGenotypeTest() {
-        AllelePair maternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
-        AllelePair paternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
+        AllelePair maternalAllelePair = new AllelePair(gene, recessiveAllele, recessiveAllele);
+        AllelePair paternalAllelePair = new AllelePair(gene, recessiveAllele, recessiveAllele);
 
         Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
 
@@ -73,8 +73,8 @@ public class AutosomalInheritanceTest {
 
     @Test
     public void AAXaaAlwaysProducesAaGenotypeTest() {
-        AllelePair maternalAllelePair = new AllelePair(dominantAllele, dominantAllele);
-        AllelePair paternalAllelePair = new AllelePair(recessiveAllele, recessiveAllele);
+        AllelePair maternalAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
+        AllelePair paternalAllelePair = new AllelePair(gene, recessiveAllele, recessiveAllele);
 
         Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
 
@@ -88,8 +88,8 @@ public class AutosomalInheritanceTest {
         // see if after many calls if allele combination distribution is 1:1:1:1 for
         // AA, Aa, aA, aa to verify independent assortment. Cross is represented by standard
         // Mendelian monohybrid cross Aa x Aa
-        AllelePair maternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
-        AllelePair paternalAllelePair = new AllelePair(dominantAllele, recessiveAllele);
+        AllelePair maternalAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
+        AllelePair paternalAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
 
         Map<String, Integer> genotypeCountMap = repeatInheritanceAndCountGenotypesHelper(maternalAllelePair, paternalAllelePair);
 
@@ -109,7 +109,7 @@ public class AutosomalInheritanceTest {
         int numAA = 0, numAa = 0, numaA = 0, numaa = 0;
 
         for (int i = 0; i < ITERATIONS; i++) {
-            AllelePair offspring = autosomalInheritance.inherit(maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
+            AllelePair offspring = autosomalInheritance.inherit(gene, maternalAllelePair, paternalAllelePair, Sex.FEMALE, random);
             Gene.Allele maternal = offspring.getMaternalAllele();
             Gene.Allele paternal = offspring.getPaternalAllele();
             if (maternal == dominantAllele && paternal == dominantAllele) {

@@ -26,11 +26,12 @@ public class AllelePairTest {
         gene = new Gene("L", trait, autosomalInheritance, dominanceRule);
         allele1 = gene.addAllele("Ls", 1, "shortHair");
         allele2 = gene.addAllele("Ll", 0, "longHair");
-        allelePair = new AllelePair(allele1, allele2);
+        allelePair = new AllelePair(gene, allele1, allele2);
     }
 
     @Test
     public void trivialAllelePairTest() {
+        assertEquals(gene, allelePair.getGene());
         assertEquals(allele1, allelePair.getMaternalAllele());
         assertEquals(allele2, allelePair.getPaternalAllele());
     }

@@ -55,12 +55,12 @@ public class SimulationEngineTest {
         coatLengthGene = new Gene("L", coatLengthTrait, autosomalInheritance, completeDominance);
         shortHairAllele = coatLengthGene.addAllele("L", 1, COAT_LENGTH_SHORT_HAIR);
         longHairAllele = coatLengthGene.addAllele("l", 0, COAT_LENGTH_LONG_HAIR);
-        heterozygousCoatLengthAllelePair = new AllelePair(shortHairAllele, longHairAllele);
+        heterozygousCoatLengthAllelePair = new AllelePair(coatLengthGene, shortHairAllele, longHairAllele);
 
         earCurlGene = new Gene("Cu", earCurlTrait, autosomalInheritance, completeDominance);
         curledEarsAllele = earCurlGene.addAllele("Cu", 1, EAR_CURL_CURLED);
         straightEarsAllele = earCurlGene.addAllele("cu+", 0, EAR_CURL_STRAIGHT);
-        heterozygousEarlCurlAllelePair = new AllelePair(curledEarsAllele, straightEarsAllele);
+        heterozygousEarlCurlAllelePair = new AllelePair(earCurlGene, curledEarsAllele, straightEarsAllele);
 
         genotypeMap = new HashMap<>();
         genotypeMap.put(coatLengthGene, heterozygousCoatLengthAllelePair);
