@@ -40,11 +40,22 @@ public class Gene {
         return Collections.unmodifiableSet(this.alleles);
     }
 
+    // EFFECTS: returns the allele with corresponding symbol
+    //          if allele doesn't exist, throws exception
+    public Allele getAlleleBySymbol(String symbol) {
+        for (Allele allele: alleles) {
+            if (allele.getAlleleSymbol().equals(symbol)) {
+                return allele;
+            }
+        }
+        throw new IllegalArgumentException("Unknown allele symbol: " + symbol);
+    }
+
 
     // EFFECTS: adds an allele/gene variant to set of alleles at this gene/locus
     // REQUIRES: a cannot be NULL
     // MODIFIES: this.alleles
-    public Allele addAllele(String symbol, Integer rank, String variant) {
+    public Allele addAllele(String symbol, int rank, String variant) {
         Allele allele = new Allele(symbol, rank, variant);
         alleles.add(allele);
         return allele;
