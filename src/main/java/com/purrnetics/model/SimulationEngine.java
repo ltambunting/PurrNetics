@@ -35,7 +35,7 @@ import java.util.Random;
  */
 
 public class SimulationEngine {
-    private Random random;
+    private final Random random;
 
     public SimulationEngine(Random random) {
         this.random = random; // stores randomly generated value for reproducibility and testing purposes
