@@ -1,11 +1,20 @@
-package com.purrnetics.model;
+package com.purrnetics.service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.purrnetics.model.AllelePair;
+import com.purrnetics.model.Cat;
+import com.purrnetics.model.Gene;
+import com.purrnetics.model.Genotype;
+import com.purrnetics.model.ParentPair;
+import com.purrnetics.model.Phenotype;
+import com.purrnetics.model.Sex;
+import com.purrnetics.model.Trait;
+
 /**
- * SimulationEngine orchestrates the biological simulation of cat genetics.
+ * BreedingService orchestrates the biological simulation of cat genetics involved in one fertilization event.
  *
  * <p>Responsibilities:
  * - Coordinates the full breeding process between two parent Cats
@@ -25,7 +34,7 @@ import java.util.Random;
  *
  * <p>Design Notes:
  * - This class separates simulation logic from domain models (e.g., ParentPair, Cat)
- * - Domain objects represent biological entities; SimulationEngine executes biology
+ * - Domain objects represent biological entities; BreedingService executes biology
  * - Current implementation uses a simplified inheritance model (no explicit gametes)
  *
  * <p>Future Extensions:
@@ -34,10 +43,10 @@ import java.util.Random;
  * - More complex dominance relationships (codominance, incomplete dominance)
  */
 
-public class SimulationEngine {
+public class BreedingService {
     private final Random random;
 
-    public SimulationEngine(Random random) {
+    public BreedingService(Random random) {
         this.random = random; // stores randomly generated value for reproducibility and testing purposes
     }
 

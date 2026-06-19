@@ -1,4 +1,4 @@
-package com.purrnetics.model;
+package com.purrnetics.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +11,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class SimulationEngineTest {
+import com.purrnetics.model.AllelePair;
+import com.purrnetics.model.AutosomalInheritance;
+import com.purrnetics.model.Cat;
+import com.purrnetics.model.CompleteDominance;
+import com.purrnetics.model.Gene;
+import com.purrnetics.model.Genotype;
+import com.purrnetics.model.ParentPair;
+import com.purrnetics.model.Phenotype;
+import com.purrnetics.model.Sex;
+import com.purrnetics.model.Trait;
+import com.purrnetics.model.XLinkedInheritance;
+import com.purrnetics.model.XLinkedMosaicExpression;
+
+public class BreedingServiceTest {
     private Cat heterozygousMomCat;
     private Cat heterozygousOrangeDadCat;
     private ParentPair dihybridParentsOrangeDad;
-    private SimulationEngine simulationEngine;
+    private BreedingService breedingService;
     private Random random;
     private static final String COAT_LENGTH_SHORT_HAIR = "Short hair";
     private static final String COAT_LENGTH_LONG_HAIR = "Long hair";
@@ -53,7 +66,7 @@ public class SimulationEngineTest {
     private Map<Trait, String> heterozygousFemalePhenotypeMap;
     private Map<Gene, AllelePair> heterozygousMaleOrangeGenotypeMap;
     private Map<Trait, String> heterozygousMaleOrangePhenotypeMap;
-    private int numCatsDistributionTest = 10000;
+    private final int numCatsDistributionTest = 10000;
     private static final double CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005 = 7.815;
     private static final double CHI_SQUARE_CRITICAL_VALUE_DF1_ALPHA_005 = 3.841;
 
@@ -125,13 +138,13 @@ public class SimulationEngineTest {
 
         random = new Random(67);
 
-        simulationEngine = new SimulationEngine(random);
+        breedingService = new BreedingService(random);
         
     }
 
     @Test
     public void breedOneOffspringTrivialTest() {
-        Cat kitten = simulationEngine.breed(dihybridParentsOrangeDad);
+        Cat kitten = breedingService.breed(dihybridParentsOrangeDad);
         assertNotNull(kitten);
         assertEquals(dihybridParentsOrangeDad, kitten.getParents());
         assertNotNull(kitten.getGenotype());
@@ -275,7 +288,7 @@ public class SimulationEngineTest {
 
     public List<Cat> breedManyTimesHelper(ParentPair parents, int count) {
         for (int i = 0; i < count; i++) {
-            simulationEngine.breed(parents);
+            breedingService.breed(parents);
         }
         return parents.getOffspring();
     }
