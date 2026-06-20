@@ -1,9 +1,11 @@
-package com.purrnetics.model;
+package com.purrnetics.model; 
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -105,7 +107,56 @@ public class AutosomalInheritanceTest {
 
     }
 
-    public Map<String, Integer> repeatInheritanceAndCountGenotypesHelper(AllelePair maternalAllelePair, AllelePair paternalAllelePair) {
+    // GET POSSIBLE GAMETES TEST
+    // possible gametes from Aa and aA are 50/50 A and a
+    // possible gametes from AA is 100% A
+    // possible gametes from aa is 100% a
+
+    @Test
+    public void getPossibleGametesfromAa() {
+        AllelePair allelePairAa = new AllelePair(gene, dominantAllele, recessiveAllele);
+        Map<Gene.Allele, Double> gameteDistributionMap = autosomalInheritance.getPossibleGametes(allelePairAa);
+        assertTrue(gameteDistributionMap.containsKey(dominantAllele));
+        assertTrue(gameteDistributionMap.containsKey(recessiveAllele));
+        assertEquals(0.5, gameteDistributionMap.get(dominantAllele));
+        assertEquals(0.5, gameteDistributionMap.get(recessiveAllele));
+    }
+
+    @Test
+    public void getPossibleGametesfromAA() {
+        AllelePair allelePairAa = new AllelePair(gene, dominantAllele, dominantAllele);
+        Map<Gene.Allele, Double> gameteDistributionMap = autosomalInheritance.getPossibleGametes(allelePairAa);
+        assertTrue(gameteDistributionMap.containsKey(dominantAllele));
+        assertFalse(gameteDistributionMap.containsKey(recessiveAllele));
+        assertEquals(1.0, gameteDistributionMap.get(dominantAllele));
+    }
+
+    @Test
+    public void getPossibleGametesfromaa() {
+        AllelePair allelePairAa = new AllelePair(gene, recessiveAllele, recessiveAllele);
+        Map<Gene.Allele, Double> gameteDistributionMap = autosomalInheritance.getPossibleGametes(allelePairAa);
+        assertFalse(gameteDistributionMap.containsKey(dominantAllele));
+        assertTrue(gameteDistributionMap.containsKey(recessiveAllele));
+        assertEquals(1.0, gameteDistributionMap.get(recessiveAllele));
+    }
+
+    @Test
+    public void getPossibleGametesfromaASameAsAa() {
+        AllelePair allelePairAa = new AllelePair(gene, recessiveAllele, dominantAllele);
+        Map<Gene.Allele, Double> gameteDistributionMap = autosomalInheritance.getPossibleGametes(allelePairAa);
+        assertTrue(gameteDistributionMap.containsKey(dominantAllele));
+        assertTrue(gameteDistributionMap.containsKey(recessiveAllele));
+        assertEquals(0.5, gameteDistributionMap.get(dominantAllele));
+        assertEquals(0.5, gameteDistributionMap.get(recessiveAllele));
+    }
+
+    // GET INHERITANCE DISTRIBUTION TEST
+    // Aa x Aa -> 
+    // Aa x AA
+    // Aa x aa
+    // Aa x AA
+
+    private Map<String, Integer> repeatInheritanceAndCountGenotypesHelper(AllelePair maternalAllelePair, AllelePair paternalAllelePair) {
         int numAA = 0, numAa = 0, numaA = 0, numaa = 0;
 
         for (int i = 0; i < ITERATIONS; i++) {
