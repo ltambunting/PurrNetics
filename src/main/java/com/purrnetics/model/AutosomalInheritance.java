@@ -34,7 +34,20 @@ public class AutosomalInheritance implements InheritanceRule {
     // EFFECT: given maternal and paternal allele pairs, calculates probability of inheriting particular allele pair
     // REQUIRES: maternal != null and paternal != null
     @Override
-    public Map<AllelePair, Double> getInheritanceDistribution(Gene gene, AllelePair maternal, AllelePair paternal, Sex offspringSex) {
-        return null; // stub
+    public Map<AllelePair, Double> getInheritanceDistribution(Gene gene, AllelePair maternalAllelePair, AllelePair paternalAllelePair, Sex offspringSex) {
+        Map<Gene.Allele, Double> possibleMaternalGameteDistributionMap = getPossibleGametes(maternalAllelePair);
+        Map<Gene.Allele, Double> possiblePaternalGameteDistributionMap = getPossibleGametes(paternalAllelePair);
+        Map<AllelePair, Double> inheritanceDistributionMap = new HashMap<>();
+        for (Gene.Allele maternalAllele : possibleMaternalGameteDistributionMap.keySet()) {
+            for (Gene.Allele paternalAllele : possiblePaternalGameteDistributionMap.keySet()) {
+                AllelePair allelePair = new AllelePair(gene, maternalAllele, paternalAllele);
+                if (!inheritanceDistributionMap.containsKey(allelePair)) {
+                    Double probability = possibleMaternalGameteDistributionMap.get(maternalAllele) * 
+                        possiblePaternalGameteDistributionMap.get(paternalAllele);
+                    inheritanceDistributionMap.put(allelePair, probability);
+                }
+            }
+        }
+        return inheritanceDistributionMap;
     }
 }
