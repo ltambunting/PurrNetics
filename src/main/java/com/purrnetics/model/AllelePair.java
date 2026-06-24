@@ -1,5 +1,6 @@
 package com.purrnetics.model;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class AllelePair {
@@ -36,5 +37,24 @@ public class AllelePair {
         } else {
             return getPaternalAllele();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+    }
+        if (!(o instanceof AllelePair)) {
+            return false;
+    }
+        AllelePair other = (AllelePair) o;
+        return Objects.equals(gene, other.gene)
+                && Objects.equals(maternalAllele, other.maternalAllele)
+                && Objects.equals(paternalAllele, other.paternalAllele);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gene, maternalAllele, paternalAllele);
     }
 }
