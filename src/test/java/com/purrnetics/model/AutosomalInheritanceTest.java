@@ -163,7 +163,7 @@ public class AutosomalInheritanceTest {
     public void getInheritanceDistributionTestForAaAa() {
         AllelePair maternAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
         AllelePair paternAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
-        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair, Sex.FEMALE);
+        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair);
         assertTrue(inheritanceDistributionMap.containsKey(AAAllelePair));
         assertTrue(inheritanceDistributionMap.containsKey(aAAllelePair));
         assertTrue(inheritanceDistributionMap.containsKey(aaAllelePair));
@@ -180,7 +180,7 @@ public class AutosomalInheritanceTest {
     public void getInheritanceDistributionTestForAaAA() {
         AllelePair maternAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
         AllelePair paternAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
-        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair, Sex.FEMALE);
+        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair);
         assertTrue(inheritanceDistributionMap.containsKey(AAAllelePair));
         assertTrue(inheritanceDistributionMap.containsKey(aAAllelePair));
         assertFalse(inheritanceDistributionMap.containsKey(aaAllelePair));
@@ -194,7 +194,7 @@ public class AutosomalInheritanceTest {
     public void getInheritanceDistributionTestForAaaa() {
         AllelePair maternAllelePair = new AllelePair(gene, dominantAllele, recessiveAllele);
         AllelePair paternAllelePair = new AllelePair(gene, recessiveAllele, recessiveAllele);
-        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair, Sex.FEMALE);
+        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair);
         assertFalse(inheritanceDistributionMap.containsKey(AAAllelePair));
         assertFalse(inheritanceDistributionMap.containsKey(aAAllelePair));
         assertTrue(inheritanceDistributionMap.containsKey(aaAllelePair));
@@ -208,7 +208,7 @@ public class AutosomalInheritanceTest {
     public void getInheritanceDistributionTestforAAAA() {
         AllelePair maternAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
         AllelePair paternAllelePair = new AllelePair(gene, dominantAllele, dominantAllele);
-        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair, Sex.FEMALE);
+        Map<AllelePair, Double> inheritanceDistributionMap = autosomalInheritance.getInheritanceDistribution(gene, maternAllelePair, paternAllelePair);
         assertTrue(inheritanceDistributionMap.containsKey(AAAllelePair));
         assertFalse(inheritanceDistributionMap.containsKey(aAAllelePair));
         assertFalse(inheritanceDistributionMap.containsKey(aaAllelePair));
