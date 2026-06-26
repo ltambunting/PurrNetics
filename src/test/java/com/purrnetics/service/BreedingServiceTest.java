@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import com.purrnetics.model.AllelePair;
 import com.purrnetics.model.AutosomalInheritance;
+import com.purrnetics.model.BreedingResult;
 import com.purrnetics.model.Cat;
 import com.purrnetics.model.CompleteDominance;
 import com.purrnetics.model.Gene;
@@ -32,17 +34,17 @@ public class BreedingServiceTest {
     private Random random;
     private static final String COAT_LENGTH_SHORT_HAIR = "Short hair";
     private static final String COAT_LENGTH_LONG_HAIR = "Long hair";
-    private static final String EAR_CURL_CURLED = "Curled ears";
-    private static final String EAR_CURL_STRAIGHT = "Straight ears";
+    private static final String AGOUTI_FUR = "Agouti fur";
+    private static final String NON_AGOUTI_FUR = "Non-agouti fur";
     private static final String ORANGE_FUR = "Orange fur";
     private static final String NON_ORANGE_FUR = "Non-orange fur";
     private static final String MOSAIC_VARIANT = "Mosaic";
     private static final Gene.Allele NO_X_ALLELE = null;
     private Gene coatLengthGene;
-    private Gene earCurlGene;
+    private Gene agoutiGene;
     private Gene orangeFurGene;
     private Trait coatLengthTrait;
-    private Trait earCurlTrait;
+    private Trait agoutiFurTrait;
     private Trait orangeFurTrait;
     private AutosomalInheritance autosomalInheritance;
     private CompleteDominance completeDominance;
@@ -50,8 +52,8 @@ public class BreedingServiceTest {
     private XLinkedMosaicExpression xLinkedMosaicExpression;
     private Gene.Allele shortHairAllele;
     private Gene.Allele longHairAllele;
-    private Gene.Allele curledEarsAllele;
-    private Gene.Allele straightEarsAllele;
+    private Gene.Allele agoutiAllele;
+    private Gene.Allele nonAgoutiAllele;
     private Gene.Allele orangeFurAllele;
     private Gene.Allele nonOrangeFurAllele;
     private Genotype heterozygousFemaleGenotype;
@@ -59,7 +61,7 @@ public class BreedingServiceTest {
     private Genotype heterozygousMaleOrangeGenotype;
     private Phenotype heterozygousMaleOrangePhenotype;
     private AllelePair heterozygousCoatLengthAllelePair;
-    private AllelePair heterozygousEarlCurlAllelePair;
+    private AllelePair heterozygousAgoutiAllelePair;
     private AllelePair heterozygousOrangeFurAllelePair;
     private AllelePair orangeAlleleHemizygousAllelePair;
     private Map<Gene, AllelePair> heterozygousFemaleGenotypeMap;
@@ -81,9 +83,9 @@ public class BreedingServiceTest {
         coatLengthTrait.addTraitVariant(COAT_LENGTH_SHORT_HAIR);
         coatLengthTrait.addTraitVariant(COAT_LENGTH_LONG_HAIR);
 
-        earCurlTrait = new Trait("earCurl");
-        earCurlTrait.addTraitVariant(EAR_CURL_CURLED);
-        earCurlTrait.addTraitVariant(EAR_CURL_STRAIGHT);
+        agoutiFurTrait = new Trait("agoutiFur");
+        agoutiFurTrait.addTraitVariant(AGOUTI_FUR);
+        agoutiFurTrait.addTraitVariant(NON_AGOUTI_FUR);
 
         orangeFurTrait = new Trait("orangeFur");
         orangeFurTrait.addTraitVariant(MOSAIC_VARIANT);
@@ -95,40 +97,40 @@ public class BreedingServiceTest {
         longHairAllele = coatLengthGene.addAllele("l", 0, COAT_LENGTH_LONG_HAIR);
         heterozygousCoatLengthAllelePair = new AllelePair(coatLengthGene, shortHairAllele, longHairAllele);
 
-        earCurlGene = new Gene("Cu", earCurlTrait, autosomalInheritance, completeDominance);
-        curledEarsAllele = earCurlGene.addAllele("Cu", 1, EAR_CURL_CURLED);
-        straightEarsAllele = earCurlGene.addAllele("cu+", 0, EAR_CURL_STRAIGHT);
-        heterozygousEarlCurlAllelePair = new AllelePair(earCurlGene, curledEarsAllele, straightEarsAllele);
+        agoutiGene = new Gene("A", agoutiFurTrait, autosomalInheritance, completeDominance);
+        agoutiAllele = agoutiGene.addAllele("A", 1, AGOUTI_FUR);
+        nonAgoutiAllele = agoutiGene.addAllele("a", 0, NON_AGOUTI_FUR);
+        heterozygousAgoutiAllelePair = new AllelePair(agoutiGene, agoutiAllele, nonAgoutiAllele);
 
         orangeFurGene = new Gene("O", orangeFurTrait, xLinkedInheritance, xLinkedMosaicExpression);
-        orangeFurAllele = orangeFurGene.addAllele("XO", 0, ORANGE_FUR);
-        nonOrangeFurAllele = orangeFurGene.addAllele("Xo", 0, NON_ORANGE_FUR);
+        orangeFurAllele = orangeFurGene.addAllele("O", 0, ORANGE_FUR);
+        nonOrangeFurAllele = orangeFurGene.addAllele("o", 0, NON_ORANGE_FUR);
         heterozygousOrangeFurAllelePair = new AllelePair(orangeFurGene, orangeFurAllele, nonOrangeFurAllele);
         orangeAlleleHemizygousAllelePair = new AllelePair(orangeFurGene, orangeFurAllele, NO_X_ALLELE);
 
         heterozygousFemaleGenotypeMap = new HashMap<>();
         heterozygousFemaleGenotypeMap.put(coatLengthGene, heterozygousCoatLengthAllelePair);
-        heterozygousFemaleGenotypeMap.put(earCurlGene, heterozygousEarlCurlAllelePair);
+        heterozygousFemaleGenotypeMap.put(agoutiGene, heterozygousAgoutiAllelePair);
         heterozygousFemaleGenotypeMap.put(orangeFurGene, heterozygousOrangeFurAllelePair);
         heterozygousFemaleGenotype = new Genotype(heterozygousFemaleGenotypeMap);
 
         heterozygousMaleOrangeGenotypeMap = new HashMap<>();
         heterozygousMaleOrangeGenotypeMap.put(coatLengthGene, heterozygousCoatLengthAllelePair);
-        heterozygousMaleOrangeGenotypeMap.put(earCurlGene, heterozygousEarlCurlAllelePair);
+        heterozygousMaleOrangeGenotypeMap.put(agoutiGene, heterozygousAgoutiAllelePair);
         heterozygousMaleOrangeGenotypeMap.put(orangeFurGene, orangeAlleleHemizygousAllelePair);
         heterozygousMaleOrangeGenotype = new Genotype(heterozygousMaleOrangeGenotypeMap);
 
 
         heterozygousFemalePhenotypeMap = new HashMap<>();
         heterozygousFemalePhenotypeMap.put(coatLengthTrait, COAT_LENGTH_SHORT_HAIR);
-        heterozygousFemalePhenotypeMap.put(earCurlTrait, EAR_CURL_CURLED);
+        heterozygousFemalePhenotypeMap.put(agoutiFurTrait, AGOUTI_FUR);
         heterozygousFemalePhenotypeMap.put(orangeFurTrait, MOSAIC_VARIANT);
         heterozygousFemalePhenotype = new Phenotype(heterozygousFemalePhenotypeMap);
 
 
         heterozygousMaleOrangePhenotypeMap = new HashMap<>();
         heterozygousMaleOrangePhenotypeMap.put(coatLengthTrait, COAT_LENGTH_SHORT_HAIR);
-        heterozygousMaleOrangePhenotypeMap.put(earCurlTrait, EAR_CURL_CURLED);
+        heterozygousMaleOrangePhenotypeMap.put(agoutiFurTrait, AGOUTI_FUR);
         heterozygousMaleOrangePhenotypeMap.put(orangeFurTrait, ORANGE_FUR);
         heterozygousMaleOrangePhenotype = new Phenotype(heterozygousMaleOrangePhenotypeMap);
 
@@ -196,10 +198,10 @@ public class BreedingServiceTest {
             }
         }
 
-        String dominantCoatLengthDominantEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_CURLED;
-        String dominantCoatLengthRecessiveEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + EAR_CURL_STRAIGHT;
-        String recessiveCoatLengthDominantEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + EAR_CURL_CURLED;
-        String recessiveCoatLengthRecessiveEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + EAR_CURL_STRAIGHT;
+        String dominantCoatLengthDominantEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + AGOUTI_FUR;
+        String dominantCoatLengthRecessiveEarCurlString = COAT_LENGTH_SHORT_HAIR + "_" + NON_AGOUTI_FUR;
+        String recessiveCoatLengthDominantEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + AGOUTI_FUR;
+        String recessiveCoatLengthRecessiveEarCurlString = COAT_LENGTH_LONG_HAIR + "_" + NON_AGOUTI_FUR;
 
         Map<String, Integer> observedCountMap = new HashMap<>();
         observedCountMap.put(dominantCoatLengthDominantEarCurlString, dominantCoatLengthDominantEarCurlCount);
@@ -284,6 +286,83 @@ public class BreedingServiceTest {
         assertTrue(chiSquareValue < CHI_SQUARE_CRITICAL_VALUE_DF3_ALPHA_005);
     }
 
+    // test distribution of all possible offspring of tortie queen and orange tom
+    @Test
+    public void breedingResultTortieQueenOrangeTomTest() {
+        BreedingResult breedingResult = breedingService.breedingResult(dihybridParentsOrangeDad);
+        Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = breedingResult.genotypeDistribution();
+        Map<Trait, Map<String, Double>> phenotypeDistributionMap = breedingResult.phenotypeDistribution();
+
+        Map<AllelePair, Double> orangeGenotypeDistribution = genotypeDistributionMap.get(orangeFurGene);
+        Map<AllelePair, Double> agoutiGenotypeDistribution = genotypeDistributionMap.get(agoutiGene);
+        Map<AllelePair, Double> furLengthGenotypeDistribution = genotypeDistributionMap.get(coatLengthGene);
+
+        AllelePair nonOrangeHemizygousAllelePair = new AllelePair(orangeFurGene, nonOrangeFurAllele, NO_X_ALLELE);
+        AllelePair homozygousOrangeAllelePair = new AllelePair(orangeFurGene, orangeFurAllele, orangeFurAllele);
+        AllelePair heterozygousMaternalNonOrangePaternalOrangeAllelePair = new AllelePair(orangeFurGene, nonOrangeFurAllele, orangeFurAllele);
+        assertTrue(orangeGenotypeDistribution.size() == 4);
+        assertTrue(orangeGenotypeDistribution.containsKey(nonOrangeHemizygousAllelePair));
+        assertTrue(orangeGenotypeDistribution.containsKey(homozygousOrangeAllelePair));
+        assertTrue(orangeGenotypeDistribution.containsKey(orangeAlleleHemizygousAllelePair));
+        assertTrue(orangeGenotypeDistribution.containsKey(heterozygousMaternalNonOrangePaternalOrangeAllelePair));
+        assertFalse(orangeGenotypeDistribution.containsKey(heterozygousOrangeFurAllelePair));
+
+        AllelePair agoutiHomozygousAllelePair = new AllelePair(agoutiGene, agoutiAllele, agoutiAllele);
+        AllelePair nonAgoutiHomozygousAllelePair = new AllelePair(agoutiGene, nonAgoutiAllele, nonAgoutiAllele);
+        AllelePair maternalAgoutiPaternalNonAgoutiAllelePair = new AllelePair(agoutiGene, agoutiAllele, nonAgoutiAllele);
+        AllelePair maternalNonAgoutiPaternalAgoutiAllelePair = new AllelePair(agoutiGene, nonAgoutiAllele, agoutiAllele);
+        assertTrue(agoutiGenotypeDistribution.size() == 4);
+        assertTrue(agoutiGenotypeDistribution.containsKey(agoutiHomozygousAllelePair));
+        assertTrue(agoutiGenotypeDistribution.containsKey(nonAgoutiHomozygousAllelePair));
+        assertTrue(agoutiGenotypeDistribution.containsKey(maternalAgoutiPaternalNonAgoutiAllelePair));
+        assertTrue(agoutiGenotypeDistribution.containsKey(maternalNonAgoutiPaternalAgoutiAllelePair));
+
+        AllelePair homozygousShortHairAllelePair = new AllelePair(coatLengthGene, shortHairAllele, shortHairAllele);
+        AllelePair homozygousLongHairAllelePair = new AllelePair(coatLengthGene, longHairAllele, longHairAllele);
+        AllelePair maternalShortHairPaternalLongHairAllelePair = new AllelePair(coatLengthGene, shortHairAllele, longHairAllele);
+        AllelePair maternalLongHairPaternalShortHairAllelePair = new AllelePair(coatLengthGene, longHairAllele, shortHairAllele);
+        assertTrue(furLengthGenotypeDistribution.size() == 4);
+        assertTrue(furLengthGenotypeDistribution.containsKey(homozygousShortHairAllelePair));
+        assertTrue(furLengthGenotypeDistribution.containsKey(homozygousLongHairAllelePair));
+        assertTrue(furLengthGenotypeDistribution.containsKey(maternalShortHairPaternalLongHairAllelePair));
+        assertTrue(furLengthGenotypeDistribution.containsKey(maternalLongHairPaternalShortHairAllelePair));
+
+        List<Map<AllelePair, Double>> genotypeMapList = List.of(orangeGenotypeDistribution, agoutiGenotypeDistribution, furLengthGenotypeDistribution);
+        for (Map<AllelePair, Double> genotypeMap : genotypeMapList) {
+            assertTrue(probabilitiesSumToOne(genotypeMap));
+            for (Double probability : genotypeMap.values()) {
+                assertTrue(probability == 0.25);
+            }
+        }
+
+        Map<String, Double> orangePhenotypeDistribution = phenotypeDistributionMap.get(orangeFurTrait);
+        Map<String, Double> agoutiPhenotypeDistribution = phenotypeDistributionMap.get(agoutiFurTrait);
+        Map<String, Double> coatLengthPhenotypeDistribution = phenotypeDistributionMap.get(coatLengthTrait);
+
+        assertTrue(orangePhenotypeDistribution.size() == 3);
+        assertTrue(orangePhenotypeDistribution.containsKey(MOSAIC_VARIANT));
+        assertTrue(orangePhenotypeDistribution.containsKey(ORANGE_FUR));
+        assertTrue(orangePhenotypeDistribution.containsKey(NON_ORANGE_FUR));
+        assertEquals(0.5, orangePhenotypeDistribution.get(ORANGE_FUR));
+        assertEquals(0.25, orangePhenotypeDistribution.get(MOSAIC_VARIANT));
+        assertEquals(0.25, orangePhenotypeDistribution.get(NON_ORANGE_FUR));
+        assertTrue(probabilitiesSumToOne(orangePhenotypeDistribution));
+
+        assertTrue(agoutiPhenotypeDistribution.size() == 2);
+        assertTrue(agoutiPhenotypeDistribution.containsKey(AGOUTI_FUR));
+        assertTrue(agoutiPhenotypeDistribution.containsKey(NON_AGOUTI_FUR));
+        assertEquals(0.75, agoutiPhenotypeDistribution.get(AGOUTI_FUR));
+        assertEquals(0.25, agoutiPhenotypeDistribution.get(NON_AGOUTI_FUR));
+        assertTrue(probabilitiesSumToOne(agoutiPhenotypeDistribution));
+
+        assertTrue(coatLengthPhenotypeDistribution.size() == 2);
+        assertTrue(coatLengthPhenotypeDistribution.containsKey(COAT_LENGTH_LONG_HAIR));
+        assertTrue(coatLengthPhenotypeDistribution.containsKey(COAT_LENGTH_SHORT_HAIR));
+        assertEquals(0.75, coatLengthPhenotypeDistribution.get(COAT_LENGTH_SHORT_HAIR));
+        assertEquals(0.25, coatLengthPhenotypeDistribution.get(COAT_LENGTH_LONG_HAIR));
+        assertTrue(probabilitiesSumToOne(coatLengthPhenotypeDistribution));
+    }
+
     // HELPER FUNCTIONS
 
     public List<Cat> breedManyTimesHelper(ParentPair parents, int count) {
@@ -299,8 +378,8 @@ public class BreedingServiceTest {
     }
 
     private boolean hasCurledEars(Phenotype phenotype) {
-    return phenotype.getExpressedVariant(earCurlTrait)
-            .equals(EAR_CURL_CURLED);
+    return phenotype.getExpressedVariant(agoutiFurTrait)
+            .equals(AGOUTI_FUR);
     }
 
     private boolean hasOrangeFur(Phenotype phenotype) {
@@ -332,5 +411,17 @@ public class BreedingServiceTest {
         }
 
         return chiSquare;
+    }
+
+    private boolean probabilitiesSumToOne(Map<?, Double> distributionMap) {
+        double counter = 0.0;
+        for (Double probability : distributionMap.values()) {
+            counter += probability;
+        }
+        if (counter == 1.0) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Random;
 
 import com.purrnetics.model.AllelePair;
+import com.purrnetics.model.BreedingResult;
 import com.purrnetics.model.Cat;
+import com.purrnetics.model.ExpressionRule;
 import com.purrnetics.model.Gene;
 import com.purrnetics.model.Genotype;
 import com.purrnetics.model.ParentPair;
@@ -77,6 +79,37 @@ public class BreedingService {
         Cat child = new Cat(null, offspringSex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
         parentPair.getOffspring().add(child);
         return child;
+    }
+
+    public BreedingResult breedingResult(ParentPair parentPair) {
+        Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = new HashMap<>();
+        Map<Trait, Map<String, Double>> phenotypeDistributionMap = new HashMap<>();
+
+        Genotype motherGenotype = parentPair.getMother().getGenotype();
+        Genotype fatherGenotype = parentPair.getFather().getGenotype();
+
+        for (Gene gene : motherGenotype.getInheritedAlleles().keySet()) {
+            AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
+            AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
+            Map<AllelePair, Double> allelePairDistributionMap = gene.getInheritanceRule().getInheritanceDistribution(gene, motherAllelePair, fatherAllelePair);
+            Map<String, Double> expressedVariantsMap = getPhenotypeDistribution(allelePairDistributionMap);
+
+            genotypeDistributionMap.put(gene, allelePairDistributionMap);
+            phenotypeDistributionMap.put(gene.getTrait(), expressedVariantsMap);
+        }
+        return new BreedingResult(genotypeDistributionMap, phenotypeDistributionMap);
+    }
+
+    private Map<String, Double> getPhenotypeDistribution(Map<AllelePair, Double> genotypeDistribution) {
+        Map<String, Double> expressedVariantsMap = new HashMap<>();
+        for (AllelePair allelePair : genotypeDistribution.keySet()) {
+            Double probability = genotypeDistribution.get(allelePair);
+            ExpressionRule expressionRule = allelePair.getGene().getExpressionRule();
+            String expressedVariant = expressionRule.resolvePhenotype(allelePair);
+
+            expressedVariantsMap.merge(expressedVariant, probability, (newProbability, oldProbability) -> newProbability + oldProbability);
+        }
+        return expressedVariantsMap;
     }
 
     private Sex assignSex() {
