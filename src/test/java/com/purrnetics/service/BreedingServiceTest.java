@@ -418,10 +418,6 @@ public class BreedingServiceTest {
         for (Double probability : distributionMap.values()) {
             counter += probability;
         }
-        if (counter == 1.0) {
-            return true;
-        }
-
-        return false;
+        return counter == 1.0;
     }
 }
