@@ -12,8 +12,8 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.purrNetics</groupId>
-    <artifactId>PurrNetics</artifactId>
+    <groupId>com.purrnetics</groupId>
+    <artifactId>purrnetics</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
