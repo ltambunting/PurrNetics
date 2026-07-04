@@ -40,6 +40,8 @@ public class BreedingServiceTest {
     private static final String NON_ORANGE_FUR = "Non-orange fur";
     private static final String MOSAIC_VARIANT = "Mosaic";
     private static final Gene.Allele NO_X_ALLELE = null;
+    private static final String CAT_ID_1 = "cid1";
+    private static final String CAT_ID_2 = "cid2";
     private Gene coatLengthGene;
     private Gene agoutiGene;
     private Gene orangeFurGene;
@@ -134,8 +136,8 @@ public class BreedingServiceTest {
         heterozygousMaleOrangePhenotypeMap.put(orangeFurTrait, ORANGE_FUR);
         heterozygousMaleOrangePhenotype = new Phenotype(heterozygousMaleOrangePhenotypeMap);
 
-        heterozygousMomCat = new Cat("Marina", Sex.FEMALE, null, heterozygousFemaleGenotype, heterozygousFemalePhenotype);
-        heterozygousOrangeDadCat = new Cat("Jotaro", Sex.MALE, null, heterozygousMaleOrangeGenotype, heterozygousMaleOrangePhenotype);
+        heterozygousMomCat = new Cat(CAT_ID_1, "Marina", Sex.FEMALE, null, heterozygousFemaleGenotype, heterozygousFemalePhenotype);
+        heterozygousOrangeDadCat = new Cat(CAT_ID_2, "Jotaro", Sex.MALE, null, heterozygousMaleOrangeGenotype, heterozygousMaleOrangePhenotype);
         dihybridParentsOrangeDad = new ParentPair(heterozygousMomCat, heterozygousOrangeDadCat);
 
         random = new Random(67);

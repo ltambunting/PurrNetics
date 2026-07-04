@@ -19,6 +19,11 @@ public class PresetCatFactory {
     private static final String SHORT_HAIR_ALLELE_SYMBOL = "L";
     private static final String LONG_HAIR_ALLELE_SYMBOL = "l";
     private static final String MOSAIC_STRING = "Mosaic";
+    private static final String CAT_ID_1 = "cid1";
+    private static final String CAT_ID_2 = "cid2";
+    private static final String CAT_ID_3 = "cid3";
+    private static final String CAT_ID_4 = "cid4";
+    private static final String CAT_ID_5 = "cid5";
     private final GeneFactory geneFactory;
     private final Gene orangeGene;
     private final Gene furLengthGene;
@@ -43,7 +48,7 @@ public class PresetCatFactory {
         AllelePair allelePair = new AllelePair(orangeGene, orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL), orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL));
         Map<Gene, AllelePair> genotypeMap = generateHeterozygousGenotypeMapAgoutiShortHairLociAndInputLocus(orangeGene, allelePair);
         Map<Trait, String> phenotypeMap = generateHeterozygousPhenotypeMapAgoutiShortHairLociandInputLocus(orangeGene.getTrait(), MOSAIC_STRING);
-        Cat cat = new Cat("Tortie Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
+        Cat cat = new Cat(CAT_ID_1, "Tortie Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
         return cat;
     }
 
@@ -51,7 +56,7 @@ public class PresetCatFactory {
         AllelePair allelePair = new AllelePair(orangeGene, orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL), orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL));
         Map<Gene, AllelePair> genotypeMap = generateHeterozygousGenotypeMapAgoutiShortHairLociAndInputLocus(orangeGene, allelePair);
         Map<Trait, String> phenotypeMap = generateHeterozygousPhenotypeMapAgoutiShortHairLociandInputLocus(orangeGene.getTrait(), orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL).getVariant());
-        Cat cat = new Cat("Tiger Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
+        Cat cat = new Cat(CAT_ID_2, "Tiger Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
         return cat;
     }
 
@@ -59,7 +64,7 @@ public class PresetCatFactory {
         AllelePair allelePair = new AllelePair(orangeGene, orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL), orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL));
         Map<Gene, AllelePair> genotypeMap = generateHeterozygousGenotypeMapAgoutiShortHairLociAndInputLocus(orangeGene, allelePair);
         Map<Trait, String> phenotypeMap = generateHeterozygousPhenotypeMapAgoutiShortHairLociandInputLocus(orangeGene.getTrait(), orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL).getVariant());
-        Cat cat = new Cat("Tabby Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
+        Cat cat = new Cat(CAT_ID_3, "Tabby Queen", Sex.FEMALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
         return cat;
     }
 
@@ -67,7 +72,7 @@ public class PresetCatFactory {
         AllelePair allelePair = new AllelePair(orangeGene, orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL), null);
         Map<Gene, AllelePair> genotypeMap = generateHeterozygousGenotypeMapAgoutiShortHairLociAndInputLocus(orangeGene, allelePair);
         Map<Trait, String> phenotypeMap = generateHeterozygousPhenotypeMapAgoutiShortHairLociandInputLocus(orangeGene.getTrait(), orangeGene.getAlleleBySymbol(ORANGE_ALLELE_SYMBOL).getVariant());
-        Cat cat = new Cat("Tiger Tom", Sex.MALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
+        Cat cat = new Cat(CAT_ID_4, "Tiger Tom", Sex.MALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
         return cat;
     }
 
@@ -75,7 +80,7 @@ public class PresetCatFactory {
         AllelePair allelePair = new AllelePair(orangeGene, orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL), null);
         Map<Gene, AllelePair> genotypeMap = generateHeterozygousGenotypeMapAgoutiShortHairLociAndInputLocus(orangeGene, allelePair);
         Map<Trait, String> phenotypeMap = generateHeterozygousPhenotypeMapAgoutiShortHairLociandInputLocus(orangeGene.getTrait(), orangeGene.getAlleleBySymbol(NON_ORANGE_ALLELE_SYMBOL).getVariant());
-        Cat cat = new Cat("Tabby Tom", Sex.MALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
+        Cat cat = new Cat(CAT_ID_5, "Tabby Tom", Sex.MALE, null, new Genotype(genotypeMap), new Phenotype(phenotypeMap));
         return cat;
     }
 

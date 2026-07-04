@@ -76,7 +76,7 @@ public class BreedingService {
             childGenotypeInheritedAlleles.put(gene, inheritedAllelePair);
             childPhenotypeMap.put(gene.getTrait(), expressedTraitVariant);
         }
-        Cat child = new Cat(null, offspringSex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
+        Cat child = new Cat(null, null, offspringSex, parentPair, new Genotype(childGenotypeInheritedAlleles), new Phenotype(childPhenotypeMap));
         parentPair.getOffspring().add(child);
         return child;
     }

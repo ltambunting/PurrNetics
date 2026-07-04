@@ -12,6 +12,9 @@ public class CatTest {
     private static final String TRAIT_VARIANT2_GENE1 = "Long hair";
     private static final String TRAIT_VARIANT1_GENE2 = "Orange fur";
     private static final String TRAIT_VARIANT2_GENE2 = "Black fur";
+    private static final String CAT_ID_1 = "cid1";
+    private static final String CAT_ID_2 = "cid2";
+    private static final String CAT_ID_3 = "cid3";
     private Gene gene1;
     private Gene gene2;
     private Trait trait1;
@@ -30,7 +33,7 @@ public class CatTest {
     private Map<Trait, String> phenotypeMap;
     private Cat catMom;
     private Cat catDad;
-    private Cat cat1;
+    private Cat catChild;
     private ParentPair parentPair;
 
     @BeforeEach
@@ -66,28 +69,29 @@ public class CatTest {
 
         phenotype = new Phenotype(phenotypeMap);
 
-        catMom = new Cat("Lucy", Sex.FEMALE, null, genotype, phenotype);
-        catDad = new Cat("Jotaro", Sex.MALE, null, genotype, phenotype);
+        catMom = new Cat(CAT_ID_1, "Lucy", Sex.FEMALE, null, genotype, phenotype);
+        catDad = new Cat(CAT_ID_2, "Jotaro", Sex.MALE, null, genotype, phenotype);
         parentPair = new ParentPair(catMom, catDad);
 
-        cat1 = new Cat("Jolyne", Sex.FEMALE, parentPair, genotype, phenotype);  
+        catChild = new Cat(CAT_ID_3, "Jolyne", Sex.FEMALE, parentPair, genotype, phenotype);  
         
     }
 
     @Test
     void testGetters() {
-        assertEquals("Jolyne", cat1.getName());
-        assertEquals(Sex.FEMALE, cat1.getSex());
-        assertEquals(parentPair, cat1.getParents());
-        assertEquals(genotype, cat1.getGenotype());
-        assertEquals(phenotype, cat1.getPhenotype());
+        assertEquals(CAT_ID_3, catChild.getID());
+        assertEquals("Jolyne", catChild.getName());
+        assertEquals(Sex.FEMALE, catChild.getSex());
+        assertEquals(parentPair, catChild.getParents());
+        assertEquals(genotype, catChild.getGenotype());
+        assertEquals(phenotype, catChild.getPhenotype());
 
     }
 
     @Test
     void testSetName() {
-        cat1.setName("Irene");
-        assertEquals("Irene", cat1.getName());
+        catChild.setName("Irene");
+        assertEquals("Irene", catChild.getName());
     }
 
 }

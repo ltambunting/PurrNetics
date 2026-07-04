@@ -1,13 +1,15 @@
 package com.purrnetics.model;
 
 public class Cat {
+    private String id;
     private String name;
     private final Sex sex;
     private final ParentPair parents;
     private final Genotype genotype;
     private final Phenotype phenotype;
 
-    public Cat(String name, Sex sex, ParentPair parents, Genotype genotype, Phenotype phenotype) {
+    public Cat(String id, String name, Sex sex, ParentPair parents, Genotype genotype, Phenotype phenotype) {
+        this.id = id;
         this.name = name;
         this.sex = sex;
         this.parents = parents;
@@ -16,6 +18,10 @@ public class Cat {
     }
 
     // GETTERS
+    public String getID() {
+        return this.id;
+    }
+
     public String getName() {
         return this.name;
     }
