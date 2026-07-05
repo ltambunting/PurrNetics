@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.springframework.stereotype.Service;
+
 import com.purrnetics.model.AllelePair;
 import com.purrnetics.model.BreedingResult;
 import com.purrnetics.model.Cat;
@@ -45,6 +47,7 @@ import com.purrnetics.model.Trait;
  * - More complex dominance relationships (codominance, incomplete dominance)
  */
 
+@Service
 public class BreedingService {
     private final Random random;
 
@@ -81,7 +84,7 @@ public class BreedingService {
         return child;
     }
 
-    public BreedingResult breedingResult(ParentPair parentPair) {
+    public BreedingResult getBreedingResult(ParentPair parentPair) {
         Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = new HashMap<>();
         Map<Trait, Map<String, Double>> phenotypeDistributionMap = new HashMap<>();
 

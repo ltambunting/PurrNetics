@@ -291,7 +291,7 @@ public class BreedingServiceTest {
     // test distribution of all possible offspring of tortie queen and orange tom
     @Test
     public void breedingResultTortieQueenOrangeTomTest() {
-        BreedingResult breedingResult = breedingService.breedingResult(dihybridParentsOrangeDad);
+        BreedingResult breedingResult = breedingService.getBreedingResult(dihybridParentsOrangeDad);
         Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = breedingResult.genotypeDistribution();
         Map<Trait, Map<String, Double>> phenotypeDistributionMap = breedingResult.phenotypeDistribution();
 
