@@ -51,6 +51,11 @@ public class Gene {
         throw new IllegalArgumentException("Unknown allele symbol: " + symbol);
     }
 
+    @Override
+    public String toString() {
+        return symbol;
+    }
+
 
     // EFFECTS: adds an allele/gene variant to set of alleles at this gene/locus
     // REQUIRES: a cannot be NULL

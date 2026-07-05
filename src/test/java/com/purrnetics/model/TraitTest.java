@@ -30,4 +30,9 @@ public class TraitTest {
         assertTrue(variants.contains("shortHair"));
         assertTrue(variants.contains("longHair"));
     }
+
+    @Test
+    public void toStringTest() {
+        assertEquals("coatLength", t.toString());
+    }
 }

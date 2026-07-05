@@ -25,4 +25,9 @@ public class Trait {
         this.traitVariants.add(traitVariant);
     }
 
+    @Override
+    public String toString() {
+        return key;
+    }
+
 }

@@ -57,4 +57,12 @@ public class AllelePair {
     public int hashCode() {
         return Objects.hash(gene, maternalAllele, paternalAllele);
     }
+
+    @Override
+    public String toString() {
+        if (paternalAllele == null) {
+            return maternalAllele.getAlleleSymbol() + "Y";
+        }
+        return maternalAllele.getAlleleSymbol() + paternalAllele.getAlleleSymbol();
+    }
 }

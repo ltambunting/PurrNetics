@@ -61,4 +61,19 @@ public class AllelePairTest {
         assertTrue(maternalCount > 400 && maternalCount < 600);
         assertTrue(paternalCount > 400 && maternalCount < 600);
     }
+
+    @Test
+    public void toStringTest() {
+        assertEquals("LsLl", allelePair.toString());
+    }
+
+    @Test public void toStringWithNoPaternalContributionTest() {
+        Trait orangeTrait = new Trait("Orange");
+        XLinkedInheritance xLinkedInheritance = new XLinkedInheritance();
+        XLinkedMosaicExpression xLinkedExpression = new XLinkedMosaicExpression();
+        Gene orangeGene = new Gene("O", orangeTrait, xLinkedInheritance, xLinkedExpression);
+        Gene.Allele orangeAllele = orangeGene.addAllele("O", 1, "Orange Fur");
+        AllelePair orangeMaleAllelePair = new AllelePair(orangeGene, orangeAllele, null);
+        assertEquals("OY", orangeMaleAllelePair.toString());
+    }
 }

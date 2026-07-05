@@ -59,4 +59,9 @@ public class GeneTest {
         }
         fail("Expected IllegalArgumentException to be thrown");
     }
+
+    @Test
+    public void toStringTest() {
+        assertEquals("L", gene.toString());
+    }
 }
