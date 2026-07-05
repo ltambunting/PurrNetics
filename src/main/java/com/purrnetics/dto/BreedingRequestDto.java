@@ -1,3 +1,3 @@
 package com.purrnetics.dto;
 
-public record BreedingRequestDto(String motherID, String fatherID) {}
+public record BreedingRequestDto(String motherId, String fatherId) {}
