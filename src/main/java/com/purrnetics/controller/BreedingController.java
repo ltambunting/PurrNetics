@@ -19,20 +19,18 @@ import com.purrnetics.service.PresetCatService;
 public class BreedingController {
     private final BreedingService breedingService;
     private final PresetCatService presetCatService;
-    private final BreedingMapper breedingMapper = new BreedingMapper();
+    private final BreedingMapper breedingMapper;
 
-    public BreedingController(BreedingService breedingService, PresetCatService presetCatService) {
+    public BreedingController(BreedingService breedingService, PresetCatService presetCatService, BreedingMapper breedingMapper) {
         this.breedingService = breedingService;
         this.presetCatService = presetCatService;
+        this.breedingMapper = breedingMapper;
     }
 
     @PostMapping("/result")
     public BreedingResponseDto breed(@RequestBody BreedingRequestDto request) {
         Cat mother = presetCatService.getCat(request.motherId());
         Cat father = presetCatService.getCat(request.fatherId());
-        if (mother == null || father == null) {
-            throw new IllegalArgumentException("Invalid cat ID");
-        }
         ParentPair parentPair = new ParentPair(mother, father);
         BreedingResult breedingResult = breedingService.getBreedingResult(parentPair);
         return breedingMapper.toDto(parentPair, breedingResult);

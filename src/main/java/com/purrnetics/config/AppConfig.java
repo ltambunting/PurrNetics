@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.purrnetics.factory.GeneFactory;
 import com.purrnetics.factory.PresetCatFactory;
+import com.purrnetics.mapper.BreedingMapper;
+import com.purrnetics.mapper.CatMapper;
 
 @Configuration
 public class AppConfig {
@@ -23,5 +25,15 @@ public class AppConfig {
     @Bean
     public PresetCatFactory presetCatFactory(GeneFactory geneFactory) {
         return new PresetCatFactory(geneFactory);
+    }
+
+    @Bean
+    public BreedingMapper breedingMapper() {
+        return new BreedingMapper();
+    }
+
+    @Bean
+    public CatMapper catMapper() {
+        return new CatMapper();
     }
 }
