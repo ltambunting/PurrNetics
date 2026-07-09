@@ -1,6 +1,7 @@
 package com.purrnetics.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +37,11 @@ public class PresetCatServiceTest {
     public void getCatTest() {
         Cat cat = presetCatService.getCat(CAT_ID_1);
         assertEquals(CAT_ID_1, cat.getID());
+    }
+
+    @Test
+    public void getCatNoIdExistsTest() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()-> presetCatService.getCat("cID3"));
+        assertEquals("Invalid cat ID", exception.getMessage());
     }
 }

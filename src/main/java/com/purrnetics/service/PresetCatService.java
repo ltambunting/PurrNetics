@@ -34,6 +34,10 @@ public class PresetCatService {
     }
 
     public Cat getCat(String id) {
-        return presetCatMap.get(id);
+        Cat cat = presetCatMap.get(id);
+        if (cat == null) {
+            throw new IllegalArgumentException("Invalid cat ID");
+        }
+        return cat;
     }
 }
