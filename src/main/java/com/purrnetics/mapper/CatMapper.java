@@ -20,6 +20,7 @@ public class CatMapper {
         List<InheritedAllelesDto> inheritedAllelesDtos = new ArrayList<>();
         List<ExpressedTraitDto> expressedTraitDtos = new ArrayList<>();
 
+        String catId = cat.getID();
         String catName = cat.getName();
         String catSex = cat.getSex().toString();
 
@@ -36,6 +37,6 @@ public class CatMapper {
             expressedTraitDtos.add(new ExpressedTraitDto(entry.getKey().toString(), entry.getValue()));
         }
         
-        return new CatResponseDto(catName, catSex, inheritedAllelesDtos, expressedTraitDtos);
+        return new CatResponseDto(catId, catName, catSex, inheritedAllelesDtos, expressedTraitDtos);
     }
 }
