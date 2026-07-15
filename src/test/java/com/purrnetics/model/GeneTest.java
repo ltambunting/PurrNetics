@@ -62,6 +62,6 @@ public class GeneTest {
 
     @Test
     public void toStringTest() {
-        assertEquals("L", gene.toString());
+        assertEquals("Fur Length (L)", gene.toString());
     }
 }

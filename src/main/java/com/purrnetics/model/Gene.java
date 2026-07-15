@@ -53,7 +53,7 @@ public class Gene {
 
     @Override
     public String toString() {
-        return symbol;
+        return trait.toString() + " (" + symbol + ")";
     }
 
 
