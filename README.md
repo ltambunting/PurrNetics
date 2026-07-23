@@ -67,7 +67,7 @@ Males: XY
 Some genes (like the gene that determines orange fur) are located on the X chromosome (known as **X-linked**) but not on the Y chromosome. As a result, this creates different inheritance patterns between male and female cats. PurrNetics models X-linked inheritance separately from **autosomal** (genes that are not on sex chromosomes) inheritance to account for these differences. 
 
 ## Currently Supported Traits
-## Agouti Fur
+### Agouti Fur
 The agouti gene determines whether a cat will have tabby stripes. This gene follows an autosomal inheritance and complete dominance expression. 
 | Genotype | Phenotype |
 | --- | --- |
@@ -75,7 +75,7 @@ The agouti gene determines whether a cat will have tabby stripes. This gene foll
 | Aa | Agouti fur | 
 | aa | Non-agouti fur | 
 
-## Fur Length
+### Fur Length
 The fur length gene follows autosomal inheritance and complete dominance expression.
 | Genotype | Trait | 
 |---|---| 
@@ -83,15 +83,15 @@ The fur length gene follows autosomal inheritance and complete dominance express
 | Ll | Short hair | 
 | ll | Long hair | 
 
-## Orange Fur
+### Orange Fur
 The orange fur gene is X-linked, resulting in different expression patterns in females and males.
-## Female Cats
+#### Female Cats
 | Genotype | Phenotype | 
 | --- | --- | 
 | OO | Orange fur | 
 | Oo | Mosaic expression (calico or tortoiseshell fur pattern) |
 | oo | Non-orange fur | 
-## Male Cats
+#### Male Cats
 Because male cats inherit their single X chromosome from their mother, their genotype is represented differently from female cats.
 | Genotype | Phenotype |
 | --- | --- |
