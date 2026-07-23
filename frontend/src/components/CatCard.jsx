@@ -1,3 +1,6 @@
+import CatSprite from "./CatSprite";
+import {AGE_STAGE} from "../constants/ageStages"
+
 // Component displaying a cat's information
 function CatCard({ cat }) {
     if (!cat) {
@@ -7,6 +10,11 @@ function CatCard({ cat }) {
     return (
         <div className = "cat-card">
             <h2> {cat.name} </h2>
+
+            <CatSprite 
+                cat = {cat}
+                ageStage = {AGE_STAGE.ADULT}
+            />
 
             <p>Sex: {cat.sex}</p>
 
