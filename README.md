@@ -44,12 +44,7 @@ Paternal allele: `l`
 During reproduction, each parent passes one allele for each gene to their offspring. This combination creates the kitten’s genotype.
 #### A simple example using the fur length gene:
 If mother’s genotype is `Ll`, that means it can either pass down `L` or `l` to a kitten
-If a father’s genotype is  `Ll`, that means it can either pass down `L` or `l` to a kitten
-A Punnett square is a simple representation of this inheritance 
-| | L | l | 
-|---|---|---| 
-| L | LL | Ll | 
-| l | Ll | ll | 
+If a father’s genotype is  `Ll`, that means it can either pass down `L` or `l` to a kitten 
 Possible kitten outcomes:
 25% `LL`
 50% `Ll`
@@ -62,6 +57,7 @@ Interestingly, a genotype does not always directly equal an observable trait. Ge
 | LL | Short hair |
 | Ll | Short hair | 
 | ll | Long hair | 
+
 Notice how a kitten needs two copies of `l` to have long hair. In other words, `L` “masks” the effect of `l`, resulting in a kitten with short hair. This is known as **complete dominance**. The `L` allele is dominant to the `l` allele. Another way to represent this relationship is that the `l` allele is recessive to the `L` allele.
 
 ### 5. X-Linked Traits
