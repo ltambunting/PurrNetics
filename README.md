@@ -14,8 +14,8 @@ Support autosomal and X-linked inheritance
 ### Parent Cat Selector
 ![Parent cat selection screen](assets/parent-selection.png)
 ### Breeding Result
-![Breeding result genotype probabilities](assets/parent-selection.png) 
-![Parent cat selection screen](assets/parent-selection.png) 
+![Breeding result genotype probabilities](assets/breeding-result-genotype.png) 
+![Parent cat selection screen](assets/breeding-result-phenotype.png) 
 
 ## Genetics 101
 PurrNetics models both **genotype** (the inherited genetic information an organism carries) and **phenotype** (the observable traits produced by expressing that genetic information). 
