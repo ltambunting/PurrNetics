@@ -5,9 +5,13 @@ function CatSelector({
     selectedCat,
     setSelectedCat
 }) {
+    const displaySex = sex.charAt(0) + sex.slice(1).toLowerCase();
+    const icon = sex === "FEMALE" ? "♀️" : "♂️";
+
     return (
         <div>
-            <h3>Choose {sex.toLowerCase()} cat         
+            <h3>
+                {icon} Choose {displaySex} cat         
             </h3>
             <select
                 onChange = {(event) => {

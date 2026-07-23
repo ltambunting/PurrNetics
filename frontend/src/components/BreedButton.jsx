@@ -21,8 +21,10 @@ function BreedButton({mother, father, setBreedingResult}) {
         }
     }
         return (
-            <button onClick={handleBreed}>
-                Breed
+            <button 
+                className = "breed-button"
+                onClick={handleBreed}>
+                Generate Kitten 🐾
             </button>
         );
 }

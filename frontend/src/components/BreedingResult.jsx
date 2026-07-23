@@ -1,13 +1,15 @@
+import ProbabilityBar from "./ProbabilityBar";
+
 function BreedingResult({ result }) {
     if (!result) {
         return null;
     }
 
     return (
-        <div>
+        <div className = "breeding-result">
 
             <h2>
-                New Kitten 
+               🐈 New Kitten 🐈
             </h2>
 
             <p>
@@ -15,45 +17,55 @@ function BreedingResult({ result }) {
             </p>
 
             <h3>
-                Genotype Outcomes
+               🧬 Genotype Outcomes 🧬
             </h3>
 
             {result.genes.map(gene => (
-                <div key = {gene.geneName}>
+                <div 
+                    key = {gene.geneName}
+                    className = "gene-card"
+                >
 
                     <h4>
                         {gene.geneName}
                     </h4>
                     
-                    <ul>
+                    <div> 
                         {gene.alleleOutcomes.map(allele => (
-                            <li key = {allele.alleleSymbol}>
-                                {allele.alleleSymbol}: {allele.probability * 100}%
-                            </li>
+                            <ProbabilityBar
+                                key = {allele.alleleSymbol}
+                                label = {allele.alleleSymbol}
+                                probability = {allele.probability}
+                            />
                         ))}
-                    </ul>
                 </div>
-                ))
-            }
+            </div>
+        ))}
+            
 
             <h3>
-                Phenotype Outcomes
+              ✨ Phenotype Outcomes ✨
             </h3>
 
             {result.traits.map(trait => (
-                <div key = {trait.traitName}>
+                <div 
+                    key = {trait.traitName}
+                    className = "trait-card"
+                >
 
                     <h4>
                         {trait.traitName}
                     </h4>
-                    
-                    <ul>
+
+                    <div>
                         {trait.variants.map(variant => (
-                            <li key = {variant.variant}>
-                                {variant.variant}: {variant.probability * 100}%
-                            </li>
+                            <ProbabilityBar
+                                key = {variant.variant}
+                                label = {variant.variant}
+                                probability = {variant.probability}
+                                />
                         ))}
-                    </ul>
+                    </div>
                 </div>
                 ))
             }

@@ -19,33 +19,38 @@ function App() {
     }, []);
 
     return (
-        <div>
+        <div className = "app">
 
-            <h1> Welcome to PurrNetics! </h1>
+            <h1> 🐱 Welcome to PurrNetics! 🧬</h1>
 
-            <div className = "selector-container">
+            <div className = "parent-container">
 
-                <CatSelector
-                    cats = {cats}
-                    sex = "FEMALE"
-                    selectedCat = {femaleCat}
-                    setSelectedCat= {setFemaleCat}
-                />
+                <div className = "parent-column">
 
-                <CatCard cat = {femaleCat}/>
+                    <CatSelector
+                        cats = {cats}
+                        sex = "FEMALE"
+                        selectedCat = {femaleCat}
+                        setSelectedCat= {setFemaleCat}
+                    />
 
-                <CatSelector
-                    cats = {cats}
-                    sex = "MALE"
-                    selectedCat = {maleCat}
-                    setSelectedCat= {setMaleCat}
-                />
+                    <CatCard cat = {femaleCat}/>
+                </div>
 
-                <CatCard cat = {maleCat}/>
+                <div className = "parent-column">
+                    <CatSelector
+                        cats = {cats}
+                        sex = "MALE"
+                        selectedCat = {maleCat}
+                        setSelectedCat= {setMaleCat}
+                    />
+
+                    <CatCard cat = {maleCat}/>
+                </div>
 
             </div>
 
-            <div>
+            <div className = "breed-section">
                 <BreedButton
                     mother = {femaleCat}
                     father = {maleCat}
@@ -53,7 +58,7 @@ function App() {
                 />
             </div>
 
-            <div>
+            <div className = "result-section">
                 <BreedingResult result = {breedingResult}/>
             </div>
 

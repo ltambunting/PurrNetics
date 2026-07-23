@@ -5,13 +5,13 @@ function CatCard({ cat }) {
     }
 
     return (
-        <div>
+        <div className = "cat-card">
             <h2> {cat.name} </h2>
 
             <p>Sex: {cat.sex}</p>
 
             <h3>
-                Genetics
+               🧬 Genotype
             </h3>
 
             <ul>
@@ -26,7 +26,7 @@ function CatCard({ cat }) {
             </ul>
 
             <h3>
-                Traits
+               ✨ Phenotype
             </h3>
 
             <ul>{
