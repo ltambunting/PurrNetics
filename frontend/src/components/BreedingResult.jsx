@@ -70,8 +70,27 @@ function BreedingResult({ result }) {
                 ))
             }
 
-
+            {result.sexLinkedTraits.map(trait => (
+                <div
+                    key = {trait.traitName}
+                    className = "trait-card"
+                >
+                    <h4>{trait.traitName}</h4>
+                    {trait.outcomes.map(sexOutcome => (
+                        <div key = {sexOutcome.sex}>
+                            <h5>{sexOutcome.sex}</h5>
+                        {sexOutcome.outcomes.map(variant => (
+                            <ProbabilityBar
+                                key = {variant.variant}
+                                label = {variant.variant}
+                                probability = {variant.probability}
+                            />
+                        ))}
+                </div>
+            ))}
         </div>
+        ))}
+    </div>
     );
 }
 
