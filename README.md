@@ -7,7 +7,7 @@ PurrNetics is an educational cat fur coat genetics simulator. It models how gene
 - Select parent cats
 - Simulate breeding outcomes
 - Calculate genotype probabilities
-= Calculate phenotype probabilities
+- Calculate phenotype probabilities
 - Support autosomal and X-linked inheritance
 
 ## Demo
@@ -54,7 +54,7 @@ Possible kitten outcomes:
 - 25% `LL`
 - 50% `Ll`
 - 25% `ll`
-- 
+ 
 ### 4. From Genotype to Trait
 Interestingly, a genotype does not always directly equal an observable trait. Genes have particular expression rules that determine **phenotype**, which is the set of observable characteristics/traits that arise from a particular genotype. PurrNetics uses these expression rules to determine phenotype.
 #### Example
@@ -71,7 +71,7 @@ For the majority of mammals, including cats, sex is determined by special chromo
 - Females: XX
 - Males: XY
   
-Some genes (like the gene that determines orange fur) are located on the X chromosome (known as **X-linked**) but not on the Y chromosome. As a result, this creates different inheritance patterns between male and female cats. PurrNetics models X-linked inheritance separately from **autosomal** (genes that are not on sex chromosomes) inheritance to account for these differences. 
+Some genes (like the gene that determines orange fur) are located on the X chromosome (known as **X-linked**) but not on the Y chromosome. As a result, this creates different inheritance patterns between males and females. Females inherit two copies of all genes on the X chromosome because they receive one X chromosome from mom and one X chromosome from dad. On the other hand, males inherit an X chromosome from mom and a Y chromosome from dad. As a result, males only receive one copy of all X-linked genes from their mother. This genetic phenomenon is known as **hemizygosity**. PurrNetics models X-linked inheritance separately from **autosomal** (genes that are not on sex chromosomes) inheritance to account for these differences. 
 
 ## Currently Supported Traits
 ### Agouti Fur
@@ -99,7 +99,7 @@ The orange fur gene is X-linked, resulting in different expression patterns in f
 | Oo | Mosaic expression (calico or tortoiseshell fur pattern) |
 | oo | Non-orange fur | 
 #### Male Cats
-Because male cats inherit their single X chromosome from their mother, their genotype is represented differently from female cats.
+Because male cats inherit their single X chromosome from their mother, their genotype is represented differently from female cats. For clarity, PurrNetics represents the lack of paternal X-linked gene contribution as "Y" to reflect the Y chromosome.
 | Genotype | Phenotype |
 | --- | --- |
 | OY | Orange fur |
@@ -119,7 +119,7 @@ Gene
 ↓ 
 Alleles 
 ↓ 
-AllelePair (maternal + paternal inheritance) 
+AllelePair (maternal + paternal genetic contributions) 
 ↓ 
 InheritanceRule 
 ↓ 
@@ -187,4 +187,6 @@ The frontend is available at http://localhost:5173
 - Include epistatic and polygenic modes of expression
 - Add cat sprites for different phenotypes
 - Create Punnett square visualizations
-- Display separate male and female probability distributions for X-linked traits
+
+## Credits
+Cat sprites were created by ClanGen
