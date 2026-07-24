@@ -1,6 +1,8 @@
 package com.purrnetics.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,10 +14,13 @@ import com.purrnetics.model.Cat;
 import com.purrnetics.model.ExpressionRule;
 import com.purrnetics.model.Gene;
 import com.purrnetics.model.Genotype;
+import com.purrnetics.model.InheritanceRule;
 import com.purrnetics.model.ParentPair;
 import com.purrnetics.model.Phenotype;
 import com.purrnetics.model.Sex;
+import com.purrnetics.model.SexLinkedTraitDistribution;
 import com.purrnetics.model.Trait;
+import com.purrnetics.model.XLinkedInheritance;
 
 /**
  * BreedingService orchestrates the biological simulation of cat genetics involved in one fertilization event.
@@ -87,26 +92,34 @@ public class BreedingService {
     public BreedingResult getBreedingResult(ParentPair parentPair) {
         Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = new HashMap<>();
         Map<Trait, Map<String, Double>> phenotypeDistributionMap = new HashMap<>();
-
+        List<SexLinkedTraitDistribution> sexLinkedTraitDistributionList = new ArrayList<>();
         Genotype motherGenotype = parentPair.getMother().getGenotype();
         Genotype fatherGenotype = parentPair.getFather().getGenotype();
 
         for (Gene gene : motherGenotype.getInheritedAlleles().keySet()) {
             AllelePair motherAllelePair = motherGenotype.getAllelePair(gene);
             AllelePair fatherAllelePair = fatherGenotype.getAllelePair(gene);
-            Map<AllelePair, Double> allelePairDistributionMap = gene.getInheritanceRule().getInheritanceDistribution(gene, motherAllelePair, fatherAllelePair);
-            Map<String, Double> expressedVariantsMap = getPhenotypeDistribution(allelePairDistributionMap);
-
+            InheritanceRule inheritanceRule = gene.getInheritanceRule();
+            Map<AllelePair, Double> allelePairDistributionMap = inheritanceRule.getInheritanceDistribution(gene, motherAllelePair, fatherAllelePair);
             genotypeDistributionMap.put(gene, allelePairDistributionMap);
-            phenotypeDistributionMap.put(gene.getTrait(), expressedVariantsMap);
+
+            Trait trait = gene.getTrait();
+            if (inheritanceRule instanceof XLinkedInheritance) {
+                SexLinkedTraitDistribution sexLinkedTraitDistribution = getSexLinkedTraitDistribution(trait, allelePairDistributionMap);
+                sexLinkedTraitDistributionList.add(sexLinkedTraitDistribution);
+            } else {
+                Map<String, Double> expressedVariantsMap = getPhenotypeDistribution(allelePairDistributionMap);
+                phenotypeDistributionMap.put(trait, expressedVariantsMap);
+            }
         }
-        return new BreedingResult(genotypeDistributionMap, phenotypeDistributionMap);
+        return new BreedingResult(genotypeDistributionMap, phenotypeDistributionMap, sexLinkedTraitDistributionList);
     }
 
-    private Map<String, Double> getPhenotypeDistribution(Map<AllelePair, Double> genotypeDistribution) {
+    // Private helper for autosomal gene trait resolution
+    private Map<String, Double> getPhenotypeDistribution(Map<AllelePair, Double> allelePairDistribution) {
         Map<String, Double> expressedVariantsMap = new HashMap<>();
-        for (AllelePair allelePair : genotypeDistribution.keySet()) {
-            Double probability = genotypeDistribution.get(allelePair);
+        for (AllelePair allelePair : allelePairDistribution.keySet()) {
+            Double probability = allelePairDistribution.get(allelePair);
             ExpressionRule expressionRule = allelePair.getGene().getExpressionRule();
             String expressedVariant = expressionRule.resolvePhenotype(allelePair);
 
@@ -122,5 +135,43 @@ public class BreedingService {
         } else {
             return Sex.MALE;
         }
+    }
+
+    private Sex getXLinkedSex(AllelePair allelePair) {
+        if (allelePair.getPaternalAllele() == null) {
+            return Sex.MALE;
+        }
+        else return Sex.FEMALE;
+    }
+
+    // private helper for sex-linked inheritance resolution
+    private SexLinkedTraitDistribution getSexLinkedTraitDistribution(Trait trait, Map<AllelePair, Double> allelePairDistribution) {
+        Map<Sex, Map<String, Double>> sexLinkedTraitMap = new HashMap<>();
+        for (AllelePair allelePair : allelePairDistribution.keySet()) {
+            Sex sex = getXLinkedSex(allelePair); // check sex
+            String expressedVariant = allelePair.getGene().getExpressionRule().resolvePhenotype(allelePair); // resolve phenotype from pair
+            Double probability = allelePairDistribution.get(allelePair); // get probability from genotype distribution map
+            if (!sexLinkedTraitMap.containsKey(sex)) { // put sex into sex linked trait map
+                sexLinkedTraitMap.put(sex, new HashMap<>());
+            }
+            Map<String, Double> variants = sexLinkedTraitMap.get(sex); // get variant map from sex
+            if (!variants.containsKey(expressedVariant)) { // if variant does not exist
+                variants.put(expressedVariant, probability); // put and use existing genotype probability
+            } else {
+                variants.put(expressedVariant, variants.get(expressedVariant) + probability); // if exist add probability to existing value
+            }
+        }
+
+        for (Map<String, Double> variants : sexLinkedTraitMap.values()) {
+            double total = 0.0;
+            for (Double probability : variants.values()) {
+                total += probability;
+            }
+
+            for (String variant : variants.keySet()) {
+                variants.put(variant, variants.get(variant)/ total);
+            }
+        } // calculate total probability for each sex then normalize each phenotype probability by sex
+        return new SexLinkedTraitDistribution(trait, sexLinkedTraitMap);
     }
 }

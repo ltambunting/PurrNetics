@@ -22,6 +22,7 @@ import com.purrnetics.model.Genotype;
 import com.purrnetics.model.ParentPair;
 import com.purrnetics.model.Phenotype;
 import com.purrnetics.model.Sex;
+import com.purrnetics.model.SexLinkedTraitDistribution;
 import com.purrnetics.model.Trait;
 import com.purrnetics.model.XLinkedInheritance;
 import com.purrnetics.model.XLinkedMosaicExpression;
@@ -294,6 +295,7 @@ public class BreedingServiceTest {
         BreedingResult breedingResult = breedingService.getBreedingResult(dihybridParentsOrangeDad);
         Map<Gene, Map<AllelePair, Double>> genotypeDistributionMap = breedingResult.genotypeDistribution();
         Map<Trait, Map<String, Double>> phenotypeDistributionMap = breedingResult.phenotypeDistribution();
+        List<SexLinkedTraitDistribution> sexLinkedTraitDistributions = breedingResult.sexLinkedTraitDistribution();
 
         Map<AllelePair, Double> orangeGenotypeDistribution = genotypeDistributionMap.get(orangeFurGene);
         Map<AllelePair, Double> agoutiGenotypeDistribution = genotypeDistributionMap.get(agoutiGene);
@@ -337,19 +339,27 @@ public class BreedingServiceTest {
             }
         }
 
-        Map<String, Double> orangePhenotypeDistribution = phenotypeDistributionMap.get(orangeFurTrait);
+        assertTrue(sexLinkedTraitDistributions.size() == 1);
+        SexLinkedTraitDistribution orangePhenotypeDistribution = null;
+        for (SexLinkedTraitDistribution distribution : sexLinkedTraitDistributions) {
+            if (distribution.trait().equals(orangeFurTrait)) {
+                orangePhenotypeDistribution = distribution;
+                break;
+            }
+        }
+        Map<String, Double> femaleOrangeDistribution = orangePhenotypeDistribution.distributions().get(Sex.FEMALE);
+        Map<String, Double> maleOrangeDistribution = orangePhenotypeDistribution.distributions().get(Sex.MALE);
+        assertEquals(2, femaleOrangeDistribution.size());
+        assertEquals(0.5, femaleOrangeDistribution.get(MOSAIC_VARIANT));
+        assertEquals(0.5, femaleOrangeDistribution.get(ORANGE_FUR));
+        assertTrue(probabilitiesSumToOne(femaleOrangeDistribution));
+        assertEquals(2, maleOrangeDistribution.size());
+        assertEquals(0.5, maleOrangeDistribution.get(ORANGE_FUR));
+        assertEquals(0.5, maleOrangeDistribution.get(NON_ORANGE_FUR));
+        assertTrue(probabilitiesSumToOne(maleOrangeDistribution));
+        
+
         Map<String, Double> agoutiPhenotypeDistribution = phenotypeDistributionMap.get(agoutiFurTrait);
-        Map<String, Double> coatLengthPhenotypeDistribution = phenotypeDistributionMap.get(coatLengthTrait);
-
-        assertTrue(orangePhenotypeDistribution.size() == 3);
-        assertTrue(orangePhenotypeDistribution.containsKey(MOSAIC_VARIANT));
-        assertTrue(orangePhenotypeDistribution.containsKey(ORANGE_FUR));
-        assertTrue(orangePhenotypeDistribution.containsKey(NON_ORANGE_FUR));
-        assertEquals(0.5, orangePhenotypeDistribution.get(ORANGE_FUR));
-        assertEquals(0.25, orangePhenotypeDistribution.get(MOSAIC_VARIANT));
-        assertEquals(0.25, orangePhenotypeDistribution.get(NON_ORANGE_FUR));
-        assertTrue(probabilitiesSumToOne(orangePhenotypeDistribution));
-
         assertTrue(agoutiPhenotypeDistribution.size() == 2);
         assertTrue(agoutiPhenotypeDistribution.containsKey(AGOUTI_FUR));
         assertTrue(agoutiPhenotypeDistribution.containsKey(NON_AGOUTI_FUR));
@@ -357,6 +367,7 @@ public class BreedingServiceTest {
         assertEquals(0.25, agoutiPhenotypeDistribution.get(NON_AGOUTI_FUR));
         assertTrue(probabilitiesSumToOne(agoutiPhenotypeDistribution));
 
+        Map<String, Double> coatLengthPhenotypeDistribution = phenotypeDistributionMap.get(coatLengthTrait);
         assertTrue(coatLengthPhenotypeDistribution.size() == 2);
         assertTrue(coatLengthPhenotypeDistribution.containsKey(COAT_LENGTH_LONG_HAIR));
         assertTrue(coatLengthPhenotypeDistribution.containsKey(COAT_LENGTH_SHORT_HAIR));
