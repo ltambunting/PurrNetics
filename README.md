@@ -12,12 +12,23 @@ PurrNetics is an educational cat fur coat genetics simulator. It models how gene
 
 ## Demo
 ### Parent Cat Selector
-![Parent cat selection screen](demo-assets/parent-selection.png)
+
+<div align = "center">
+<img src = "demo-assets/parent-selection.png" />
+</div>
+
 ### Breeding Result
-![Breeding result genotype probabilities](demo-assets/breeding-result-genotype.png) 
-![Breeding result phenotype probabilities](demo-assets/breeding-result-phenotype.png)
-## Possible Kittens From Breeding Result
-![Possible kittens](demo-assets/possible-kittens.png)
+
+<div align = "center">
+<img src = "demo-assets/breeding-result-genotype.png" />
+<img src = "demo-assets/breeding-result-phenotype.png" />
+</div>
+
+### Possible Kitten Outcomes
+
+<div align = "center">
+<img src = "demo-assets/possible-kittens.png" />
+</div>
 
 ## Genetics 101
 PurrNetics models both **genotype** (the inherited genetic information an organism carries) and **phenotype** (the observable traits produced by expressing that genetic information). 
