@@ -155,11 +155,7 @@ public class BreedingService {
                 sexLinkedTraitMap.put(sex, new HashMap<>());
             }
             Map<String, Double> variants = sexLinkedTraitMap.get(sex); // get variant map from sex
-            if (!variants.containsKey(expressedVariant)) { // if variant does not exist
-                variants.put(expressedVariant, probability); // put and use existing genotype probability
-            } else {
-                variants.put(expressedVariant, variants.get(expressedVariant) + probability); // if exist add probability to existing value
-            }
+            variants.merge(expressedVariant, probability, (newProbability, oldProbability) -> newProbability + oldProbability);
         }
 
         for (Map<String, Double> variants : sexLinkedTraitMap.values()) {
