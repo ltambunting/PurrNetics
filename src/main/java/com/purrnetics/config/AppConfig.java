@@ -9,6 +9,7 @@ import com.purrnetics.factory.GeneFactory;
 import com.purrnetics.factory.PresetCatFactory;
 import com.purrnetics.mapper.BreedingMapper;
 import com.purrnetics.mapper.CatMapper;
+import com.purrnetics.mapper.PossibleKittenMapper;
 
 @Configuration
 public class AppConfig {
@@ -35,5 +36,10 @@ public class AppConfig {
     @Bean
     public CatMapper catMapper() {
         return new CatMapper();
+    }
+
+    @Bean
+    public PossibleKittenMapper possibleKittenMapper() {
+        return new PossibleKittenMapper();
     }
 }
