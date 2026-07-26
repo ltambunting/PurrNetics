@@ -2,8 +2,20 @@ import adultOrangeTabbyShort from "../assets/sprites/adult/orange-tabby-adult.pn
 import adultTabbyShort from "../assets/sprites/adult/non-orange-tabby-adult.png";
 import adultTortieShort from "../assets/sprites/adult/mosaic-adult.png";
 
-function getExpressedTrait(cat, traitName) {
-    const trait = cat.expressedTraits.find(
+import kittenOrangeTabbyShort from "../assets/sprites/kitten/orange-agouti-short-kitten.png";
+import kittenOrangeTabbyLong from "../assets/sprites/kitten/orange-agouti-long-kitten.png";
+import kittenMosaicTabbyShort from "../assets/sprites/kitten/mosaic-agouti-short-kitten.png";
+import kittenMosaicTabbyLong from "../assets/sprites/kitten/mosaic-agouti-long-kitten.png";
+import kittenMosaicSolidShort from "../assets/sprites/kitten/mosaic-nonagouti-short-kitten.png";
+import kittenMosaicSolidLong from "../assets/sprites/kitten/mosaic-nonagouti-long-kitten.png";
+import kittenNonOrangeTabbyShort from "../assets/sprites/kitten/nonorange-agouti-short-kitten.png";
+import kittenNonOrangeTabbyLong from "../assets/sprites/kitten/nonorange-agouti-long-kitten.png";
+import kittenNonOrangeSolidShort from "../assets/sprites/kitten/nonorange-nonagouti-short-kitten.png";
+import kittenNonOrangeSolidLong from "../assets/sprites/kitten/nonorange-nonagouti-long-kitten.png";
+
+
+function getExpressedTrait(traits, traitName) {
+    const trait = traits.expressedTraits.find(
         t => t.traitName === traitName
     );
 
@@ -38,9 +50,11 @@ function getAppearance(cat) {
     } else {
         colour = "NON_ORANGE";
     }
-
+// temporary for demo: orange cats always use tabby (will reflect in v2 epistatic functions)
     let pattern;
-    if (agoutiTrait === "Agouti fur") {
+    if (colour === "ORANGE") {
+        pattern = "TABBY";
+    } else if (agoutiTrait === "Agouti fur") {
         pattern = "TABBY";
     } else {
         pattern = "SOLID";
@@ -79,17 +93,44 @@ const spriteLibrary = {
     "ADULT_TORTIE_TABBY_SHORT":
         adultTortieShort,
 
-    // "KITTEN_ORANGE_TABBY_SHORT":
-    //     kittenOrangeTabbyShort,
-    // "KITTEN_NON_ORANGE_TABBY_SHORT":
-    //     kittenTabbyShort,
-    // "KITTEN_TORTIE_TABBY_SHORT":
-    //     kittenTortieShort
+    "KITTEN_ORANGE_TABBY_SHORT":
+        kittenOrangeTabbyShort,
+
+    "KITTEN_ORANGE_TABBY_LONG":
+        kittenOrangeTabbyLong,
+
+
+    "KITTEN_TORTIE_TABBY_SHORT":
+        kittenMosaicTabbyShort,
+
+    "KITTEN_TORTIE_TABBY_LONG":
+        kittenMosaicTabbyLong,
+
+
+    "KITTEN_TORTIE_SOLID_SHORT":
+        kittenMosaicSolidShort,
+
+    "KITTEN_TORTIE_SOLID_LONG":
+        kittenMosaicSolidLong,
+
+
+    "KITTEN_NON_ORANGE_TABBY_SHORT":
+        kittenNonOrangeTabbyShort,
+
+    "KITTEN_NON_ORANGE_TABBY_LONG":
+        kittenNonOrangeTabbyLong,
+
+
+    "KITTEN_NON_ORANGE_SOLID_SHORT":
+        kittenNonOrangeSolidShort,
+
+    "KITTEN_NON_ORANGE_SOLID_LONG":
+        kittenNonOrangeSolidLong
     
 }
 
-export function getSprite(cat, ageStage) {
-    const appearance = getAppearance(cat);
+export function getSprite(traits, ageStage) {
+    const appearance = getAppearance(traits);
     const key = createSpriteKey(
         appearance,
         ageStage

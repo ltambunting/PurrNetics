@@ -1,6 +1,6 @@
-import {breedCats} from "../services/PurrneticsApi";
+import {breedCats, getPossibleKittens} from "../services/PurrneticsApi";
 
-function BreedButton({mother, father, setBreedingResult}) {
+function BreedButton({mother, father, setBreedingResult, setPossibleKittens}) {
     // inner event handling function
     if (!mother || !father) {
         console.log("Please select parent cats");
@@ -13,8 +13,12 @@ function BreedButton({mother, father, setBreedingResult}) {
                 mother.catId,
                 father.catId
             );
-
+            const possibleKittens = await getPossibleKittens(
+                mother.catId,
+                father.catId
+            );
             setBreedingResult(result);
+            setPossibleKittens(possibleKittens);
             console.log(result);
         } catch (error) {
             console.error(error);

@@ -3,6 +3,7 @@ import CatCard from "./components/CatCard";
 import CatSelector from "./components/CatSelector";
 import BreedButton from "./components/BreedButton";
 import BreedingResult from "./components/BreedingResult";
+import PossibleKittenOutcome from "./components/PossibleKittenOutcome";
 import { getCats, breedCats } from "./services/PurrneticsApi.js";
 import "./App.css";
 
@@ -11,6 +12,7 @@ function App() {
     const [femaleCat, setFemaleCat] = useState(null);
     const [maleCat, setMaleCat] = useState(null); // initial value = null as not cat selected
     const [breedingResult, setBreedingResult] = useState(null);
+    const [possibleKittens, setPossibleKittens] = useState([]); //possible outcomes after breeding
 
     useEffect(() => {
         getCats().then(data => {
@@ -55,12 +57,17 @@ function App() {
                     mother = {femaleCat}
                     father = {maleCat}
                     setBreedingResult={setBreedingResult}
+                    setPossibleKittens={setPossibleKittens}
                 />
             </div>
-
+            
             <div className = "result-section">
                 <BreedingResult result = {breedingResult}/>
             </div>
+
+            <PossibleKittenOutcome  
+                kittens={possibleKittens}
+            />
 
         </div>
 
