@@ -12,6 +12,8 @@ import kittenNonOrangeTabbyShort from "../assets/sprites/kitten/nonorange-agouti
 import kittenNonOrangeTabbyLong from "../assets/sprites/kitten/nonorange-agouti-long-kitten.png";
 import kittenNonOrangeSolidShort from "../assets/sprites/kitten/nonorange-nonagouti-short-kitten.png";
 import kittenNonOrangeSolidLong from "../assets/sprites/kitten/nonorange-nonagouti-long-kitten.png";
+import kittenOrangeSolidLong from "../assets/sprites/kitten/orange-nonagouti-long-kitten.png";
+import kittenOrangeSolidShort from "../assets/sprites/kitten/orange-nonagouti-short-kitten.png";
 
 
 function getExpressedTrait(traits, traitName) {
@@ -50,11 +52,9 @@ function getAppearance(cat) {
     } else {
         colour = "NON_ORANGE";
     }
-// temporary for demo: orange cats always use tabby (will reflect in v2 epistatic functions)
+// note that "solid" tabby still has agouti ticks to show epistasis in future
     let pattern;
-    if (colour === "ORANGE") {
-        pattern = "TABBY";
-    } else if (agoutiTrait === "Agouti fur") {
+    if (agoutiTrait === "Agouti fur") {
         pattern = "TABBY";
     } else {
         pattern = "SOLID";
@@ -125,7 +125,13 @@ const spriteLibrary = {
         kittenNonOrangeSolidShort,
 
     "KITTEN_NON_ORANGE_SOLID_LONG":
-        kittenNonOrangeSolidLong
+        kittenNonOrangeSolidLong,
+
+    "KITTEN_ORANGE_SOLID_SHORT": 
+        kittenOrangeSolidShort,
+
+    "KITTEN_ORANGE_SOLID_LONG":
+        kittenOrangeSolidLong
     
 }
 
