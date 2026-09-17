@@ -1,17 +1,18 @@
 # PurrNetics
 
 ## About
-PurrNetics is a full-stack simulation application that models possible cat coat outcomes from breeding pairs. The project applies domain knowledge of cat genetics to design and implement inheritance and trait-expression rules, with the simulation logic implemented in a Java backend using Spring Boot and visualized through a React frontend.
+PurrNetics is a full-stack genetics simulator that models possible cat coat outcomes from breeding pairs. The project applies domain knowledge of cat genetics to design and implement inheritance and trait-expression rules, with the simulation logic implemented in a Java backend using Spring Boot and visualized through a React frontend.
 
-Users can select parent cats and explore possible offspring through calculated genotype and phenotype probability distributions.
+Users can select parent cats and explore possible offspring through calculated genotype and phenotype probability distributions. 
 
 ## Features
 - Select parent cats
 - Simulate breeding outcomes
 - Calculate genotype probability distributions
 - Calculate phenotype probability distributions
-- Support autosomal and X-linked inheritance
 - Model inheritance and trait-expression rules independently
+- Support autosomal and X-linked inheritance
+- Support X-linked mosaicism and complete dominance modes of trait expression
 
 ## Demo
 ### Parent Cat Selector
@@ -33,8 +34,15 @@ Users can select parent cats and explore possible offspring through calculated g
 <img src = "demo-assets/possible-kittens.png" />
 </div>
 
+## Highlights
+- Object-oriented domain modelling of genes, alleles, inheritance rules, and trait-expression rules
+- Separation of inheritance logic from trait-expression logic
+- REST API connecting a Java/Spring Boot backend with a React frontend
+- JUnit testing of inheritance and trait-expression rules
+- Statistical validation using 10,000 simulated breeding trials and chi-square tests
+  
 ## Technical Architecture
-PurrNetics uses a full-stack architecture with a React frontend and Java/Spring Boot REST API backend,
+PurrNetics uses a full-stack architecture with a React frontend and a Java/Spring Boot REST API backend.
 
 ### The Java/Spring Boot Backend
 - Manages cat data
@@ -45,7 +53,7 @@ PurrNetics uses a full-stack architecture with a React frontend and Java/Spring 
 
 The simulation separates inheritance logic from trait-expression logic. This allows the system to determine which alleles an offspring inherits independently from how those alleles are expressed as observable traits.
 
-The core domain flow that is modelled is:
+The core domain flow is:
 
 ```text 
 Gene 
@@ -86,12 +94,11 @@ React Frontend
 - Displays possible offspring outcomes
 
 ## Testing
-PurrNetics uses JUnit to test inheritance, expression, and simulation behaviour. 
 The test suite includes:
--  Unit tests for inheritance and trait-expression rules
--  Tests for autosomal and X-linked inheritance calculations
--  10,000 independent breeding trials compared against expected probability ratios
--  Chi-square tests to statistically validate simulated outcomes against expected ratios
+- Unit tests for inheritance and trait-expression rules
+- Tests for autosomal and X-linked inheritance calculations
+- 10,000 independent breeding trials compared against expected probability ratios
+- Chi-square tests to statistically validate simulated outcomes against expected ratios
 
 ## Tech Stack
 ### Backend
@@ -119,14 +126,14 @@ JSON-based API communication
 - Maven
 - Node.js and npm
 ### 1. Start the Spring Boot API
-From the project root 
+From the project root: 
 ```bash
 mvn spring-boot:run
 ```
 The backend API will start at http://localhost:8080
 
 ### 2. Start the React Frontend
-Open a second terminal and navigate to the frontend
+Open a second terminal and navigate to the frontend:
 ```bash
 cd frontend
 ```
@@ -138,7 +145,7 @@ Start the development server
 ```bash
 npm run dev
 ```
-The frontend is available at http://localhost:5173 
+The frontend is available at http://localhost:5173
 
 ## Currently Supported Traits
 ### Agouti Fur
