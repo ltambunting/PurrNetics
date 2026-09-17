@@ -233,5 +233,11 @@ For the majority of mammals, including cats, sex is determined by special chromo
   
 Some genes (like the gene that determines orange fur) are located on the X chromosome (known as **X-linked**) but not on the Y chromosome. As a result, this creates different inheritance patterns between males and females. Females inherit two copies of all genes on the X chromosome because they receive one X chromosome from mom and one X chromosome from dad. On the other hand, males inherit an X chromosome from mom and a Y chromosome from dad. As a result, males only receive one copy of all X-linked genes from their mother. This genetic phenomenon is known as **hemizygosity**. PurrNetics models X-linked inheritance separately from **autosomal** (genes that are not on sex chromosomes) inheritance to account for these differences. 
 
+## Citations
+- Eizirik, E., Yuhki, N., Johnson, W. E., Menotti-Raymond, M., Hannah, S. S., & O'Brien, S. J. (2003). Molecular genetics and evolution of melanism in the cat family. *Current Biology*, *13*(5), 448–453. https://doi.org/10.1016/S0960-9822(03)00128-3
+- Kaelin, C. B., McGowan, K. A., Trotman, J. C., Koroma, D. C., & Barsh, G. S. (2025). Molecular and genetic characterization of sex-linked orange coat color in the domestic cat. *Current Biology*, *35*(12), 2826–2836. https://doi.org/10.1016/j.cub.2025.04.055
+- Kehler, J. S., David, V. A., Schäffer, A. A., Bajema, K., Eizirik, E., Ryugo, D. K., Hannah, S. S., O'Brien, S. J., & Menotti-Raymond, M. (2007). Four independent mutations in the feline fibroblast growth factor 5 gene determine the long-haired phenotype in domestic cats. *Journal of Heredity*, *98*(6), 555–566. https://doi.org/10.1093/jhered/esm072
+- Schmidt-Kūntzel, A., Nelson, G., David, V. A., Schäffer, A. A., Eizirik, E., Roelke, M. E., Kehler, J. S., Hannah, S. S., O'Brien, S. J., & Menotti-Raymond, M. (2009). A domestic cat X chromosome linkage map and the sex-linked orange locus: Mapping of orange, multiple origins and epistasis over nonagouti. *Genetics*, *181*(4), 1415–1425. https://doi.org/10.1534/genetics.108.095240
+
 ## Credits
 Cat sprites were created by ClanGen
